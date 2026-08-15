@@ -1,0 +1,35 @@
+<div class="division-container">
+  <h2>Add Division</h2>
+  <form (ngSubmit)="save()">
+    <div class="form-group">
+      <label> Division Name </label>
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="division.name"
+        placeholder="Enter Division Name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label> Division Name BN </label>
+      <input
+        type="text"
+        name="nameBN"
+        [(ngModel)]="division.nameBN"
+        placeholder="Enter Bangla Name"
+      />
+    </div>
+    <div class="form-group">
+      <label> Country Id </label>
+      <input
+        type="number"
+        name="countryId"
+        [(ngModel)]="division.countryId"
+        placeholder="Enter Country ID"
+        required
+      />
+    </div>
+    <button type="submit">Save Division</button>
+  </form>
+</div>

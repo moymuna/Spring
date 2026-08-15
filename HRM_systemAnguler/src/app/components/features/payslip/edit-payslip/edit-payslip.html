@@ -1,0 +1,20 @@
+<div class="container">
+  <h2>Edit Payslip</h2>
+  <form [formGroup]="form" (ngSubmit)="update()">
+    <input type="number" formControlName="month" placeholder="Enter Month" />
+    <input type="number" formControlName="year" placeholder="Enter Year" />
+    <input type="number" formControlName="grossSalary" placeholder="Enter Gross Salary" />
+    <input type="number" formControlName="totalDeductions" placeholder="Enter Total Deductions" />
+    <input type="number" formControlName="netSalary" placeholder="Enter Net Salary" />
+    <input type="number" formControlName="paidDays" placeholder="Enter Paid Days" />
+    <input type="number" formControlName="lopDays" placeholder="Enter LOP Days" />
+    <select formControlName="status">
+      <option *ngFor="let s of statuses" [value]="s">
+        {{ s }}
+      </option>
+    </select>
+    <input type="number" formControlName="employeeId" placeholder="Enter Employee ID" />
+    <input type="number" formControlName="payrollId" placeholder="Enter Payroll ID" />
+    <button>Update</button>
+  </form>
+</div>

@@ -1,0 +1,81 @@
+.container {
+  padding: 20px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.header button {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.header button:hover {
+  background: var(--color-accent);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--color-surface);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+th {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  padding: 12px;
+}
+td {
+  border: 1px solid var(--color-border);
+  padding: 10px;
+  text-align: center;
+}
+.edit {
+  background: var(--color-warning);
+  color: var(--color-text-primary);
+  border: none;
+  padding: 7px 12px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.delete {
+  background: var(--color-danger);
+  color: var(--color-surface);
+  border: none;
+  padding: 7px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.edit:hover {
+  background: var(--color-warning);
+}
+.delete:hover {
+  background: var(--color-danger);
+}
+.paid {
+  color: green;
+  font-weight: bold;
+}
+.unpaid {
+  color: red;
+  font-weight: bold;
+}
+.success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.error {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}

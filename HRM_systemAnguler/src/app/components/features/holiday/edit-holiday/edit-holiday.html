@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Edit Holiday</h2>
+  <form [formGroup]="holidayForm" (ngSubmit)="updateHoliday()">
+    <label> Holiday Name </label>
+    <input type="text" formControlName="name" placeholder="Enter Holiday Name" />
+    <label> Holiday Date </label>
+    <input type="date" formControlName="date" placeholder="Enter Holiday Date" />
+    <div class="checkbox">
+      <input type="checkbox" formControlName="recurringYearly" />
+      <label> Recurring Yearly </label>
+    </div>
+    <label> Description </label>
+    <textarea formControlName="description" placeholder="Enter Description"> </textarea>
+    <button>Update Holiday</button>
+  </form>
+</div>

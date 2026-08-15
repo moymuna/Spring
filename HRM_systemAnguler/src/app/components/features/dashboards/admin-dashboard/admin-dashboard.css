@@ -1,0 +1,7 @@
+﻿/* Dashboard primitives live in src/styles.css so every dashboard shares them. */
+.error {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 12px 14px;
+  border-radius: var(--radius-control);
+}

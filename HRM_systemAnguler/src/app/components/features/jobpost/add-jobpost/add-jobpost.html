@@ -1,0 +1,72 @@
+<div class="jobpost-container">
+  <h2>Add Job Post</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form (ngSubmit)="save()">
+    <label>Job Title</label>
+    <input type="text" name="title" [(ngModel)]="jobPost.title" placeholder="Enter Job Title" />
+    <label>Description</label>
+    <textarea name="description" [(ngModel)]="jobPost.description" placeholder="Enter Description">
+    </textarea>
+    <label>Requirements</label>
+    <textarea
+      name="requirements"
+      [(ngModel)]="jobPost.requirements"
+      placeholder="Enter Requirements"
+    >
+    </textarea>
+    <label>Location</label>
+    <input
+      type="text"
+      name="location"
+      [(ngModel)]="jobPost.location"
+      placeholder="Enter Location"
+    />
+    <label>Minimum Salary</label>
+    <input
+      type="number"
+      name="minSalary"
+      [(ngModel)]="jobPost.minSalary"
+      placeholder="Enter Minimum Salary"
+    />
+    <label>Maximum Salary</label>
+    <input
+      type="number"
+      name="maxSalary"
+      [(ngModel)]="jobPost.maxSalary"
+      placeholder="Enter Maximum Salary"
+    />
+    <label>Posted Date</label>
+    <input
+      type="date"
+      name="postedDate"
+      [(ngModel)]="jobPost.postedDate"
+      placeholder="Enter Posted Date"
+    />
+    <label>Deadline</label>
+    <input
+      type="date"
+      name="deadline"
+      [(ngModel)]="jobPost.deadline"
+      placeholder="Enter Deadline"
+    />
+    <label>Status</label>
+    <select name="status" [(ngModel)]="jobPost.status">
+      <option *ngFor="let status of statusList" [value]="status">
+        {{ status }}
+      </option>
+    </select>
+    <label>Department</label>
+    <select name="departmentId" [(ngModel)]="jobPost.departmentId">
+      <option [ngValue]="0">Select Department</option>
+      <option *ngFor="let department of departments" [ngValue]="department.id">
+        {{ department.departmentName }}
+      </option>
+    </select>
+    <button type="submit">Save</button>
+  </form>
+</div>

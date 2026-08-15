@@ -1,0 +1,439 @@
+<div class="employee-container">
+  <h2>Add New Employee</h2>
+  <p class="form-required-note">
+    <span class="required-mark">*</span> indicates a required field. Address details are optional.
+  </p>
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="employeeForm" (ngSubmit)="saveEmployee()">
+    <div class="section">
+      <h3>Employee Information</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label> Contract No <span class="required-mark">*</span> </label>
+          <input
+            type="text"
+            formControlName="contractNo"
+            class="form-control"
+            placeholder="Enter Contract No"
+          />
+        </div>
+        <div class="form-group">
+          <label> Joining Date <span class="required-mark">*</span> </label>
+          <input
+            type="date"
+            formControlName="joiningDate"
+            class="form-control"
+            placeholder="Enter Joining Date"
+          />
+        </div>
+        <div class="form-group">
+          <label> Date Of Birth </label>
+          <input
+            type="date"
+            formControlName="dateOfBirth"
+            class="form-control"
+            placeholder="Enter Date Of Birth"
+          />
+        </div>
+        <div class="form-group">
+          <label> Status <span class="required-mark">*</span> </label>
+          <select class="form-control" formControlName="status">
+            <option *ngFor="let status of employeeStatuses" [value]="status">
+              {{ status }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label> Gender <span class="required-mark">*</span> </label>
+          <select class="form-control" formControlName="gender">
+            <option value="">Select Gender</option>
+            <option *ngFor="let gender of genders" [value]="gender">
+              {{ gender }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label> Blood Group </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bloodGroup"
+            placeholder="Enter Blood Group"
+          />
+        </div>
+        <div class="form-group">
+          <label> Employment Type <span class="required-mark">*</span> </label>
+          <select class="form-control" formControlName="employmentType">
+            <option *ngFor="let type of employmentTypes" [value]="type">
+              {{ type }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3>Bank Details (Salary Account)</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label> Bank Name </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bankName"
+            placeholder="Enter Bank Name"
+          />
+        </div>
+        <div class="form-group">
+          <label> Branch </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bankBranch"
+            placeholder="Enter Branch"
+          />
+        </div>
+        <div class="form-group">
+          <label> Account Holder Name </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bankAccountName"
+            placeholder="Enter Account Holder Name"
+          />
+        </div>
+        <div class="form-group">
+          <label> Account Number </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="bankAccountNumber"
+            placeholder="Enter Account Number"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3>Login Information</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label> Full Name <span class="required-mark">*</span> </label>
+          <input
+            type="text"
+            class="form-control"
+            formControlName="fullName"
+            placeholder="Enter Full Name"
+          />
+        </div>
+        <div class="form-group">
+          <label> Email <span class="required-mark">*</span> </label>
+          <input
+            type="email"
+            class="form-control"
+            formControlName="email"
+            placeholder="Enter Email"
+          />
+        </div>
+        <div class="form-group">
+          <label> Password <span class="required-mark">*</span> </label>
+          <div class="password-box">
+            <input
+              [type]="showPassword ? 'text' : 'password'"
+              class="form-control"
+              formControlName="password"
+              placeholder="Enter Password"
+            />
+            <button
+              type="button"
+              class="show-btn"
+              [attr.aria-label]="showPassword ? 'Hide password' : 'Show password'"
+              (click)="showPassword = !showPassword"
+            >
+              <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash-fill' : 'bi-eye-fill'"></i>
+            </button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label> Role <span class="required-mark">*</span> </label>
+          <select class="form-control" formControlName="role">
+            <option *ngFor="let role of roles" [value]="role">
+              {{ role }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <h3>Organization Information</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label> Department </label>
+          <select
+            class="form-control"
+            formControlName="departmentId"
+            (change)="onDepartmentChange()"
+          >
+            <option value="">Select Department</option>
+            <option *ngFor="let dept of departments" [value]="dept.id">
+              {{ dept.departmentName }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label> Designation </label>
+          <select class="form-control" formControlName="designationId">
+            <option value="">Select Designation</option>
+            <option *ngFor="let des of designations" [value]="des.id">
+              {{ des.title }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label> Office </label>
+          <select class="form-control" formControlName="officeId">
+            <option value="">Select Office</option>
+            <option *ngFor="let office of offices" [value]="office.id">
+              {{ office.officeName }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label> Manager </label>
+          <select class="form-control" formControlName="managerId">
+            <option value="">No Manager</option>
+            <option *ngFor="let manager of managers" [value]="manager.id">
+              {{ manager.fullName }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="address-wrapper">
+      <div class="section">
+        <h3>Present Address</h3>
+        <div class="form-grid" formGroupName="presentAddress">
+          <div class="form-group">
+            <label>Address Line 1</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="addressLine1"
+              placeholder="Enter Address Line 1"
+            />
+          </div>
+          <div class="form-group">
+            <label>Address Line 2</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="addressLine2"
+              placeholder="Enter Address Line 2"
+            />
+          </div>
+          <div class="form-group">
+            <label>Post Office</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="postOffice"
+              placeholder="Enter Post Office"
+            />
+          </div>
+          <div class="form-group">
+            <label>Postal Code</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="postalCode"
+              placeholder="Enter Postal Code"
+            />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <select
+              class="form-control"
+              formControlName="countryId"
+              (change)="onCountryChange('presentAddress')"
+            >
+              <option value="">Select Country</option>
+              <option *ngFor="let country of countries" [value]="country.id">
+                {{ country.countryName }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Division</label>
+            <select
+              class="form-control"
+              formControlName="divisionId"
+              (change)="onDivisionChange('presentAddress')"
+            >
+              <option value="">Select Division</option>
+              <option *ngFor="let division of presentDivisions" [value]="division.id">
+                {{ division.name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>District</label>
+            <select
+              class="form-control"
+              formControlName="districtId"
+              (change)="onDistrictChange('presentAddress')"
+            >
+              <option value="">Select District</option>
+              <option *ngFor="let district of presentDistricts" [value]="district.id">
+                {{ district.districtsName }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Police Station</label>
+            <select class="form-control" formControlName="policeStationId">
+              <option value="">Select Police Station</option>
+              <option *ngFor="let ps of presentPoliceStations" [value]="ps.id">
+                {{ ps.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Permanent Address</h3>
+        <label class="same-as-present">
+          <input
+            type="checkbox"
+            [checked]="sameAsPresent"
+            (change)="toggleSameAsPresent($event.target.checked)"
+          />
+          Same as Present Address
+        </label>
+        <div class="form-grid" formGroupName="permanentAddress">
+          <div class="form-group">
+            <label>Address Line 1</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="addressLine1"
+              [attr.disabled]="sameAsPresent || null"
+              placeholder="Enter Address Line 1"
+            />
+          </div>
+          <div class="form-group">
+            <label>Address Line 2</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="addressLine2"
+              [attr.disabled]="sameAsPresent || null"
+              placeholder="Enter Address Line 2"
+            />
+          </div>
+          <div class="form-group">
+            <label>Post Office</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="postOffice"
+              [attr.disabled]="sameAsPresent || null"
+              placeholder="Enter Post Office"
+            />
+          </div>
+          <div class="form-group">
+            <label>Postal Code</label>
+            <input
+              class="form-control"
+              type="text"
+              formControlName="postalCode"
+              [attr.disabled]="sameAsPresent || null"
+              placeholder="Enter Postal Code"
+            />
+          </div>
+          <div class="form-group">
+            <label>Country</label>
+            <select
+              class="form-control"
+              formControlName="countryId"
+              [attr.disabled]="sameAsPresent || null"
+              (change)="onCountryChange('permanentAddress')"
+            >
+              <option value="">Select Country</option>
+              <option *ngFor="let country of countries" [value]="country.id">
+                {{ country.countryName }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Division</label>
+            <select
+              class="form-control"
+              formControlName="divisionId"
+              [attr.disabled]="sameAsPresent || null"
+              (change)="onDivisionChange('permanentAddress')"
+            >
+              <option value="">Select Division</option>
+              <option *ngFor="let division of permanentDivisions" [value]="division.id">
+                {{ division.name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>District</label>
+            <select
+              class="form-control"
+              formControlName="districtId"
+              [attr.disabled]="sameAsPresent || null"
+              (change)="onDistrictChange('permanentAddress')"
+            >
+              <option value="">Select District</option>
+              <option *ngFor="let district of permanentDistricts" [value]="district.id">
+                {{ district.districtsName }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Police Station</label>
+            <select
+              class="form-control"
+              formControlName="policeStationId"
+              [attr.disabled]="sameAsPresent || null"
+            >
+              <option value="">Select Police Station</option>
+              <option *ngFor="let ps of permanentPoliceStations" [value]="ps.id">
+                {{ ps.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="form-group image-upload">
+        <label>Employee Photo</label>
+        <input
+          #fileInput
+          type="file"
+          class="form-control"
+          accept="image/*"
+          (change)="onFileSelected($event)"
+        />
+        <div class="image-preview mt-2" *ngIf="imagePreview">
+          <img [src]="imagePreview" alt="Employee Photo" class="preview-img" />
+          <br />
+          <button
+            type="button"
+            class="btn btn-danger btn-sm mt-2"
+            (click)="removeSelectedFile(fileInput)"
+          >
+            Remove Image
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="action">
+      <button type="submit" class="btn-save" [disabled]="loading">
+        <span *ngIf="!loading"> Save Employee </span>
+        <span *ngIf="loading"> Saving... </span>
+      </button>
+    </div>
+  </form>
+</div>

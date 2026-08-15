@@ -1,0 +1,40 @@
+﻿<div class="country-container">
+  <div class="header">
+    <h2>Country List</h2>
+    <button routerLink="/country/add">Add Country</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Country Name</th>
+        <th>Code</th>
+        <th>Phone Code</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of countries; let i = index">
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td>
+          {{ c.countryName }}
+        </td>
+        <td>
+          {{ c.code }}
+        </td>
+        <td>
+          {{ c.phoneCode }}
+        </td>
+        <td>
+          <button class="edit-btn" (click)="edit(c.id!)">Edit</button>
+          <button class="delete-btn" (click)="delete(c.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="countries.length === 0">No Country Found</div>
+</div>
+
+<app-modal-outlet (closed)="loadCountries()"></app-modal-outlet>

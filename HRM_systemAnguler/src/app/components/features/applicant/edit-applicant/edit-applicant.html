@@ -1,0 +1,33 @@
+<div class="applicant-container">
+  <h2>Edit Applicant</h2>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <form [formGroup]="applicantForm" (ngSubmit)="updateApplicant()">
+    <label> Name </label>
+    <input type="text" formControlName="name" placeholder="Enter Name" />
+    <label> Email </label>
+    <input type="email" formControlName="email" placeholder="Enter Email" />
+    <label> Phone </label>
+    <input type="text" formControlName="phone" placeholder="Enter Phone" />
+    <label> Address </label>
+    <textarea formControlName="address" placeholder="Enter Address"></textarea>
+    <label> Education </label>
+    <select multiple formControlName="education">
+      <option *ngFor="let edu of educationLevels" [value]="edu">
+        {{ edu }}
+      </option>
+    </select>
+    <label> Experience </label>
+    <select multiple formControlName="experience">
+      <option *ngFor="let exp of experienceLevels" [value]="exp">
+        {{ exp }}
+      </option>
+    </select>
+    <label> Skills </label>
+    <textarea formControlName="skills" placeholder="Enter Skills"></textarea>
+    <label> CV Path </label>
+    <input type="text" formControlName="cvPath" placeholder="Enter CV Path" />
+    <label> Password (optional) </label>
+    <input type="password" formControlName="password" placeholder="Enter Password" />
+    <button type="submit" class="save-btn">Update Applicant</button>
+  </form>
+</div>

@@ -1,0 +1,150 @@
+<div class="dashboard-container">
+  <div class="welcome-banner">
+    <h1><i class="bi bi-people-fill text-info me-2"></i>HR Operations Dashboard</h1>
+    <p class="text-muted">
+      Manage workforce profiles, view live attendance logs, and process leave applications.
+    </p>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card" *ngFor="let stat of stats" [style.border-top-color]="stat.color">
+      <div class="stat-body">
+        <div class="stat-info">
+          <span class="stat-number">{{ stat.count }}</span>
+          <span class="stat-label text-muted">{{ stat.label }}</span>
+        </div>
+        <i class="bi fs-1" [ngClass]="stat.icon" [style.color]="stat.color"></i>
+      </div>
+    </div>
+  </div>
+  <div class="card mt-4 p-3 border-0 shadow-sm bg-white">
+    <h4 class="mb-3"><i class="bi bi-tools text-primary me-2"></i>Operations Panel</h4>
+    <div class="d-flex flex-wrap gap-2">
+      <a routerLink="/employee" class="btn btn-outline-primary"
+        ><i class="bi bi-person-lines-fill me-1"></i>Employee Directory</a
+      >
+      <a routerLink="/attendance" class="btn btn-outline-success"
+        ><i class="bi bi-calendar-check me-1"></i>Attendance Logs</a
+      >
+      <a routerLink="/leave" class="btn btn-outline-warning"
+        ><i class="bi bi-calendar-range me-1"></i>Leave Management</a
+      >
+      <a routerLink="/payroll" class="btn btn-outline-danger"
+        ><i class="bi bi-cash-stack me-1"></i>Payroll List</a
+      >
+    </div>
+  </div>
+  <div class="content-grid mt-4">
+    <div class="grid-card">
+      <h3>Pending Leave Requests</h3>
+      <div class="table-responsive" *ngIf="recentLeaves.length > 0; else noLeaves">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Employee ID</th>
+              <th>Leave Type</th>
+              <th>Start Date</th>
+              <th>End Date</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let leave of recentLeaves">
+              <td>{{ leave.employee?.id || leave.employeeId }}</td>
+              <td>{{ leave.leaveType?.typeName || leave.leaveTypeId }}</td>
+              <td>{{ leave.startDate | date: 'shortDate' }}</td>
+              <td>{{ leave.endDate | date: 'shortDate' }}</td>
+              <td>
+                <a routerLink="/leave" class="btn btn-sm btn-primary">Process</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noLeaves>
+        <div class="text-center p-4 text-muted">No pending leave applications.</div>
+      </ng-template>
+    </div>
+    <div class="grid-card">
+      <h3>Recent Attendance Logs</h3>
+      <div class="table-responsive" *ngIf="recentAttendance.length > 0; else noAttendance">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Clock In</th>
+              <th>Clock Out</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let att of recentAttendance">
+              <td>{{ att.attendanceDate | date: 'mediumDate' }}</td>
+              <td>{{ att.clockIn }}</td>
+              <td>{{ att.clockOut || 'Active' }}</td>
+              <td>
+                <span class="badge" [ngClass]="att.clockOut ? 'bg-success' : 'bg-warning'">
+                  {{ att.clockOut ? 'Completed' : 'Working' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noAttendance>
+        <div class="text-center p-4 text-muted">No attendance records for today yet.</div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="content-grid mt-4">
+    <div class="grid-card">
+      <h3>Leave Utilization ({{ leaveUtilization.length > 0 ? 'This Year' : '' }})</h3>
+      <div class="table-responsive" *ngIf="leaveUtilization.length > 0; else noUtilization">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Leave Type</th>
+              <th>Entitled</th>
+              <th>Used</th>
+              <th>Remaining</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let u of leaveUtilization">
+              <td>{{ u.leaveTypeName }}</td>
+              <td>{{ u.totalEntitled }}</td>
+              <td>{{ u.totalUsed }}</td>
+              <td>{{ u.remaining }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noUtilization>
+        <div class="text-center p-4 text-muted">No leave balance data for this year yet.</div>
+      </ng-template>
+    </div>
+    <div class="grid-card">
+      <h3>Payroll Cost Trend ({{ payrollTrend.length > 0 ? 'This Year' : '' }})</h3>
+      <div class="table-responsive" *ngIf="payrollTrend.length > 0; else noTrend">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Month</th>
+              <th>Total Net Payroll</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of payrollTrend">
+              <td>{{ monthNames[p.month - 1] }}</td>
+              <td>{{ p.total | number: '1.2-2' }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <ng-template #noTrend>
+        <div class="text-center p-4 text-muted">
+          No payroll has been generated for this year yet.
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

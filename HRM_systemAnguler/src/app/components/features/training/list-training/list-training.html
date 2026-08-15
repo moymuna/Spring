@@ -1,0 +1,81 @@
+﻿<div class="container">
+  <h2>Training List</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <a *ngIf="!isEmployeeOnly" routerLink="/training/add" class="add-btn"> + Add Training </a>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Training Title</th>
+        <th>Employee</th>
+        <th>Department</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let training of trainings">
+        <td>
+          {{ training.id }}
+        </td>
+        <td>
+          {{ training.trainingTitle }}
+        </td>
+        <td>
+          {{ training.employeeName }}
+        </td>
+        <td>
+          {{ training.departmentName }}
+        </td>
+        <td>
+          {{ training.startDate }}
+        </td>
+        <td>
+          {{ training.endDate }}
+        </td>
+        <td>
+          <span
+            *ngIf="training.employeeId"
+            class="status-badge"
+            [ngClass]="training.status?.toLowerCase()"
+            >{{ training.status || 'PENDING' }}</span
+          >
+          <span *ngIf="!training.employeeId" class="status-badge open">Open</span>
+        </td>
+        <td>
+          <ng-container *ngIf="!isEmployeeOnly">
+            <a [routerLink]="['/training/edit', training.id]" class="edit-btn"> Edit </a>
+            <button (click)="deleteTraining(training.id!)" class="delete-btn">Delete</button>
+            <button
+              *ngIf="training.status === 'PENDING' && training.employeeId"
+              (click)="approveTraining(training.id!)"
+              class="approve-btn"
+            >
+              Approve
+            </button>
+            <button
+              *ngIf="training.status === 'PENDING' && training.employeeId"
+              (click)="rejectTraining(training.id!)"
+              class="reject-btn"
+            >
+              Reject
+            </button>
+          </ng-container>
+          <button
+            *ngIf="isEmployeeOnly && !training.employeeId"
+            (click)="applyForTraining(training.id!)"
+            class="approve-btn"
+          >
+            Apply
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal-outlet (closed)="loadTraining()"></app-modal-outlet>

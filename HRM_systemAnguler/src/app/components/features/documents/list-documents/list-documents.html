@@ -1,0 +1,64 @@
+﻿<div class="list-container">
+  <div class="header">
+    <h2>Document List</h2>
+    <a routerLink="/documents/add" class="add-btn"> + Add Document </a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Employee</th>
+        <th>File</th>
+        <th>Download</th>
+        <th *ngIf="!isEmployeeOnly">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let doc of documents">
+        <td>
+          {{ doc.id }}
+        </td>
+        <td>
+          {{ doc.documentName }}
+        </td>
+        <td>
+          {{ doc.documentType }}
+        </td>
+        <td>
+          {{ doc.employeeName }}
+        </td>
+        <td>
+          {{ doc.filePath }}
+        </td>
+        <td>
+          <a
+            [href]="documentUrl(doc.filePath)"
+            [download]="doc.documentName"
+            class="download-btn"
+            target="_blank"
+          >
+            Download
+          </a>
+        </td>
+        <td *ngIf="!isEmployeeOnly">
+          <a [routerLink]="['/documents/edit', doc.id]" class="edit"> Edit </a>
+          <button (click)="deleteDocument(doc.id!)" class="delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="documents.length === 0 && !loadFailed && !isEmployeeOnly">
+    No Documents Found â€” click "+ Add Document" to upload one.
+  </div>
+  <div class="empty" *ngIf="documents.length === 0 && !loadFailed && isEmployeeOnly">
+    No documents have been uploaded for you yet.
+  </div>
+  <div class="empty" *ngIf="documents.length === 0 && loadFailed">
+    Could not load documents.
+    <button type="button" class="retry-btn" (click)="loadDocuments()">Retry</button>
+  </div>
+</div>
+
+<app-modal-outlet (closed)="loadDocuments()"></app-modal-outlet>

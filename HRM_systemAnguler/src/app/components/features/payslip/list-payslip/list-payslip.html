@@ -1,0 +1,83 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Payslip List</h2>
+    <a *ngIf="!isEmployeeOnly" routerLink="/payslip/add" class="add-btn"> + Add Payslip </a>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Employee</th>
+        <th>Month</th>
+        <th>Year</th>
+        <th>Gross</th>
+        <th>Deductions</th>
+        <th>Net Salary</th>
+        <th>Status</th>
+        <th>Download</th>
+        <th *ngIf="!isEmployeeOnly">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of payslips">
+        <td>
+          {{ p.id }}
+        </td>
+        <td>
+          {{ p.employeeName }}
+        </td>
+        <td>
+          {{ p.month }}
+        </td>
+        <td>
+          {{ p.year }}
+        </td>
+        <td>
+          {{ p.grossSalary | number: '1.2-2' }}
+        </td>
+        <td class="deduction-cell">
+          <strong>{{ p.totalDeductions | number: '1.2-2' }}</strong>
+          <div class="breakdown">
+            <small *ngIf="(p.providentFund ?? 0) > 0">
+              Provident Fund: {{ p.providentFund | number: '1.2-2' }}
+            </small>
+            <small *ngIf="(p.professionalTax ?? 0) > 0">
+              Professional Tax: {{ p.professionalTax | number: '1.2-2' }}
+            </small>
+            <small *ngIf="(p.incomeTax ?? 0) > 0">
+              Income Tax: {{ p.incomeTax | number: '1.2-2' }}
+            </small>
+            <small *ngIf="(p.lopDeduction ?? 0) > 0">
+              Absent ({{ p.lopDays }}d): {{ p.lopDeduction | number: '1.2-2' }}
+            </small>
+            <small *ngIf="(p.leaveDeduction ?? 0) > 0">
+              Unpaid Leave ({{ p.unpaidLeaveDays }}d): {{ p.leaveDeduction | number: '1.2-2' }}
+            </small>
+            <small *ngIf="(p.advanceDeduction ?? 0) > 0">
+              Advance Recovery: {{ p.advanceDeduction | number: '1.2-2' }}
+            </small>
+          </div>
+        </td>
+        <td>
+          <strong>{{ p.netSalary | number: '1.2-2' }}</strong>
+        </td>
+        <td>
+          <span class="status-badge" [ngClass]="p.status?.toLowerCase()">{{ p.status }}</span>
+        </td>
+        <td>
+          <button (click)="downloadPayslip(p)" class="download-btn">Download</button>
+        </td>
+        <td *ngIf="!isEmployeeOnly">
+          <a [routerLink]="['/payslip/edit', p.id]" class="edit-btn"> Edit </a>
+          <button (click)="delete(p.id!)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="payslips.length === 0">No payslips found.</div>
+</div>
+
+<app-modal-outlet (closed)="load()"></app-modal-outlet>

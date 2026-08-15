@@ -1,0 +1,33 @@
+<div class="container">
+  <h2>Add Application</h2>
+  <form (ngSubmit)="save()">
+    <label> Applicant </label>
+    <select [(ngModel)]="application.applicantId" name="applicantId">
+      <option value="0">Select Applicant</option>
+      <option *ngFor="let a of applicants" [value]="a.id">
+        {{ a.name }}
+      </option>
+    </select>
+    <label> Job Post </label>
+    <select [(ngModel)]="application.jobPostId" name="jobPostId">
+      <option value="0">Select Job</option>
+      <option *ngFor="let j of jobPosts" [value]="j.id">
+        {{ j.title }}
+      </option>
+    </select>
+    <label> Apply Date </label>
+    <input
+      type="date"
+      [(ngModel)]="application.applyDate"
+      name="applyDate"
+      placeholder="Enter Apply Date"
+    />
+    <label> Status </label>
+    <select [(ngModel)]="application.status" name="status">
+      <option *ngFor="let s of statuses" [value]="s">
+        {{ s }}
+      </option>
+    </select>
+    <button type="submit">Save Application</button>
+  </form>
+</div>

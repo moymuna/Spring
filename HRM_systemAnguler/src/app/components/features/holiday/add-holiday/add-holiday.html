@@ -1,0 +1,28 @@
+<div class="holiday-container">
+  <h2>Add Holiday</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="holidayForm" (ngSubmit)="saveHoliday()">
+    <div class="form-group">
+      <label> Holiday Name </label>
+      <input type="text" formControlName="name" placeholder="Enter Holiday Name" />
+    </div>
+    <div class="form-group">
+      <label> Holiday Date </label>
+      <input type="date" formControlName="date" placeholder="Enter Holiday Date" />
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" formControlName="recurringYearly" />
+      <label> Recurring Yearly </label>
+    </div>
+    <div class="form-group">
+      <label> Description </label>
+      <textarea rows="5" formControlName="description" placeholder="Enter Description"> </textarea>
+    </div>
+    <button type="submit" class="save-btn">Save Holiday</button>
+  </form>
+</div>

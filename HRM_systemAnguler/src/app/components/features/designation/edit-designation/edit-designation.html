@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Edit Designation</h2>
+  <form (ngSubmit)="update()">
+    <div class="form-group">
+      <label> Designation Title </label>
+      <input
+        type="text"
+        [(ngModel)]="designation.title"
+        name="title"
+        placeholder="Enter Designation Title"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label> Level </label>
+      <input type="text" [(ngModel)]="designation.level" name="level" placeholder="Enter Level" />
+    </div>
+    <div class="form-group">
+      <label> Department </label>
+      <select [(ngModel)]="designation.departmentId" name="departmentId" required>
+        <option [value]="0">Select Department</option>
+        <option *ngFor="let d of departments" [value]="d.id">
+          {{ d.departmentName }}
+        </option>
+      </select>
+    </div>
+    <div class="button-group">
+      <button type="submit" class="btn-update">Update</button>
+      <button type="button" class="btn-cancel" (click)="cancel()">Cancel</button>
+    </div>
+  </form>
+</div>

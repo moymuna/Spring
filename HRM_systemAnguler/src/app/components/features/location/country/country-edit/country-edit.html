@@ -1,0 +1,39 @@
+<div class="country-container">
+  <h2>Edit Country</h2>
+  <form (ngSubmit)="update()">
+    <div class="form-group">
+      <label> Country Name </label>
+      <input
+        type="text"
+        name="countryName"
+        [(ngModel)]="country.countryName"
+        placeholder="Enter Country Name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label> Country Code </label>
+      <input
+        type="text"
+        name="code"
+        [(ngModel)]="country.code"
+        placeholder="Enter Country Code"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label> Phone Code </label>
+      <input
+        type="text"
+        name="phoneCode"
+        [(ngModel)]="country.phoneCode"
+        placeholder="Enter Phone Code"
+        required
+      />
+    </div>
+    <div class="button-group">
+      <button type="submit">Update Country</button>
+      <button type="button" class="reset-btn" (click)="reset()">Reset</button>
+    </div>
+  </form>
+</div>

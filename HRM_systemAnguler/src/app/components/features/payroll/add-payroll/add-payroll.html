@@ -1,0 +1,71 @@
+<div class="payroll-container">
+  <h2>Generate Payroll</h2>
+  <p class="hint">
+    Payroll is computed automatically from the employee's active Salary structure and that month's
+    Attendance — nothing here is typed in by hand.
+  </p>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="generateForm" (ngSubmit)="generatePayroll()">
+    <div class="form-group">
+      <label> Employee </label>
+      <select formControlName="employeeId">
+        <option value="">Select Employee</option>
+        <option *ngFor="let e of employees" [value]="e.id">
+          {{ e.fullName }} ({{ e.employeeCode }})
+        </option>
+      </select>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label> Month </label>
+        <select formControlName="month">
+          <option value="">Select Month</option>
+          <option *ngFor="let m of months" [value]="m.value">{{ m.name }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label> Year </label>
+        <select formControlName="year">
+          <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+        </select>
+      </div>
+    </div>
+    <button type="submit" [disabled]="generating">
+      {{ generating ? 'Generating...' : 'Generate Payroll' }}
+    </button>
+  </form>
+  <div class="result-summary" *ngIf="result">
+    <h3>Computed Result</h3>
+    <div class="result-grid">
+      <div class="result-item">
+        <span class="result-label">Gross Salary</span>
+        <span class="result-value">{{ result.grossSalary | number: '1.2-2' }}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Total Deductions</span>
+        <span class="result-value">{{ result.totalDeductions | number: '1.2-2' }}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Net Salary</span>
+        <span class="result-value">{{ result.netSalary | number: '1.2-2' }}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Paid Days</span>
+        <span class="result-value">{{ result.paidDays }}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">LOP Days</span>
+        <span class="result-value">{{ result.lopDays }}</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Status</span>
+        <span class="result-value">{{ result.status }}</span>
+      </div>
+    </div>
+  </div>
+</div>

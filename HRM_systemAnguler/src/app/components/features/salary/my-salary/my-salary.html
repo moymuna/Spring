@@ -1,0 +1,131 @@
+<div class="container">
+  <div class="header">
+    <div>
+      <h2>My Salary</h2>
+      <p class="subtitle" *ngIf="employeeName">{{ employeeName }} · {{ employeeCode }}</p>
+    </div>
+    <div class="header-actions">
+      <a routerLink="/payslip" class="link-btn">View Payslips</a>
+      <a routerLink="/advance/add" class="link-btn">Request Advance</a>
+      <button class="print-btn" (click)="printStructure()">Print</button>
+    </div>
+  </div>
+
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <section class="card" *ngIf="salary; else noSalary">
+    <div class="card-header">
+      <h3>Salary Structure</h3>
+      <span class="grade-badge" *ngIf="salary.gradeNumber">
+        Grade {{ salary.gradeNumber }}{{ salary.gradeTitle ? ' · ' + salary.gradeTitle : '' }}
+      </span>
+    </div>
+    <div class="structure-grid">
+      <div class="structure-block">
+        <h4>Earnings</h4>
+        <div class="row"><span>Basic Salary</span><span>{{ salary.basicSalary | number: '1.2-2' }}</span></div>
+        <div class="row"><span>House Rent (HRA)</span><span>{{ salary.hra | number: '1.2-2' }}</span></div>
+        <div class="row"><span>Conveyance</span><span>{{ salary.conveyanceAllowance | number: '1.2-2' }}</span></div>
+        <div class="row"><span>Medical</span><span>{{ salary.medicalAllowance | number: '1.2-2' }}</span></div>
+        <div class="row"><span>Special</span><span>{{ salary.specialAllowance | number: '1.2-2' }}</span></div>
+        <div class="row total"><span>Gross Monthly</span><span>{{ salary.grossMonthly | number: '1.2-2' }}</span></div>
+      </div>
+      <div class="structure-block">
+        <h4>Deductions</h4>
+        <div class="row"><span>Provident Fund</span><span>{{ salary.providentFund | number: '1.2-2' }}</span></div>
+        <div class="row"><span>Professional Tax</span><span>{{ salary.professionalTax | number: '1.2-2' }}</span></div>
+        <div class="row"><span>Income Tax</span><span>{{ salary.incomeTax | number: '1.2-2' }}</span></div>
+        <div class="row total"><span>Total Deductions</span><span>{{ salary.totalDeductions | number: '1.2-2' }}</span></div>
+      </div>
+    </div>
+    <div class="net-strip">
+      <span>Net Monthly</span>
+      <strong>{{ netMonthly | number: '1.2-2' }}</strong>
+    </div>
+    <p class="effective">
+      Effective from {{ salary.effectiveFrom }}
+      <span *ngIf="salary.effectiveTo"> to {{ salary.effectiveTo }}</span>
+    </p>
+  </section>
+  <ng-template #noSalary>
+    <div class="empty">{{ salaryMessage || 'Loading your salary structure...' }}</div>
+  </ng-template>
+
+  <section class="card">
+    <div class="card-header">
+      <h3>Payroll Summary</h3>
+    </div>
+    <table *ngIf="payrolls.length > 0; else noPayroll">
+      <thead>
+        <tr>
+          <th>Period</th>
+          <th>Paid Days</th>
+          <th>LOP Days</th>
+          <th>Gross</th>
+          <th>Advance Recovered</th>
+          <th>Deductions</th>
+          <th>Net</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payroll of payrolls">
+          <td>{{ monthName(payroll.month) }} {{ payroll.year }}</td>
+          <td>{{ payroll.paidDays }}</td>
+          <td>{{ payroll.lopDays }}</td>
+          <td>{{ payroll.grossSalary | number: '1.2-2' }}</td>
+          <td>{{ payroll.advanceDeduction | number: '1.2-2' }}</td>
+          <td>{{ payroll.totalDeductions | number: '1.2-2' }}</td>
+          <td>
+            <strong>{{ payroll.netSalary | number: '1.2-2' }}</strong>
+          </td>
+          <td>
+            <span class="status-badge" [ngClass]="payroll.status?.toLowerCase()">
+              {{ payroll.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noPayroll>
+      <div class="empty">No payroll has been processed for you yet.</div>
+    </ng-template>
+  </section>
+
+  <section class="card" *ngIf="advances.length > 0">
+    <div class="card-header">
+      <h3>My Advances</h3>
+      <span class="grade-badge" *ngIf="totalOutstandingAdvance > 0">
+        Outstanding: {{ totalOutstandingAdvance | number: '1.2-2' }}
+      </span>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th>Requested</th>
+          <th>Amount</th>
+          <th>Installments</th>
+          <th>Monthly Deduction</th>
+          <th>Outstanding</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let advance of advances">
+          <td>{{ advance.requestDate }}</td>
+          <td>{{ advance.amount | number: '1.2-2' }}</td>
+          <td>{{ advance.installments }}</td>
+          <td>{{ advance.monthlyDeduction | number: '1.2-2' }}</td>
+          <td>{{ advance.outstandingAmount | number: '1.2-2' }}</td>
+          <td>
+            <span class="status-badge" [ngClass]="advance.status?.toLowerCase()">
+              {{ advance.status }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>

@@ -1,0 +1,53 @@
+<div class="applicant-container">
+  <h2>Add Applicant</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form (ngSubmit)="save()">
+    <label> Name </label>
+    <input type="text" [(ngModel)]="applicant.name" name="name" placeholder="Enter Name" required />
+    <label> Email </label>
+    <input
+      type="email"
+      [(ngModel)]="applicant.email"
+      name="email"
+      placeholder="Enter Email"
+      required
+    />
+    <label> Phone </label>
+    <input type="text" [(ngModel)]="applicant.phone" name="phone" placeholder="Enter Phone" />
+    <label> Address </label>
+    <input type="text" [(ngModel)]="applicant.address" name="address" placeholder="Enter Address" />
+    <h4>Education</h4>
+    <div class="checkbox-item" *ngFor="let edu of educationList">
+      <input type="checkbox" (change)="toggleEducation(edu)" />
+      <span>
+        {{ edu }}
+      </span>
+    </div>
+    <h4>Experience</h4>
+    <div class="checkbox-item" *ngFor="let exp of experienceList">
+      <input type="checkbox" (change)="toggleExperience(exp)" />
+      <span>
+        {{ exp }}
+      </span>
+    </div>
+    <label> Skills </label>
+    <textarea [(ngModel)]="applicant.skills" name="skills" placeholder="Enter Skills"> </textarea>
+    <label> CV / Resume </label>
+    <input type="file" accept=".pdf,.doc,.docx" (change)="onCvSelected($event)" />
+    <span *ngIf="uploadingCv">Uploading...</span>
+    <span *ngIf="applicant.cvPath && !uploadingCv">Uploaded: {{ applicant.cvPath }}</span>
+    <label> Password </label>
+    <input
+      type="password"
+      [(ngModel)]="applicant.password"
+      name="password"
+      placeholder="Enter Password"
+    />
+    <button type="submit">Save Applicant</button>
+  </form>
+</div>

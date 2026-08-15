@@ -1,0 +1,37 @@
+<div class="project-container">
+  <h2>Add Project</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="projectForm" (ngSubmit)="saveProject()">
+    <div class="form-group">
+      <label> Project Name </label>
+      <input type="text" formControlName="projectName" placeholder="Enter Project Name" />
+    </div>
+    <div class="form-group">
+      <label> Description </label>
+      <textarea formControlName="description" placeholder="Enter Description"></textarea>
+    </div>
+    <div class="form-group">
+      <label> Start Date </label>
+      <input type="date" formControlName="startDate" placeholder="Enter Start Date" />
+    </div>
+    <div class="form-group">
+      <label> End Date </label>
+      <input type="date" formControlName="endDate" placeholder="Enter End Date" />
+    </div>
+    <div class="form-group">
+      <label> Employee IDs </label>
+      <input type="text" placeholder="Enter Employee IDs" formControlName="employeeId" />
+      <small> Multiple employee id comma separated </small>
+    </div>
+    <div class="form-group">
+      <label> Office ID </label>
+      <input type="number" formControlName="officeId" placeholder="Enter Office ID" />
+    </div>
+    <button type="submit">Save Project</button>
+  </form>
+</div>

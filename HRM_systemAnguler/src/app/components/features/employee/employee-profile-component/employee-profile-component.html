@@ -1,0 +1,203 @@
+<div class="container">
+  <h2>My Profile</h2>
+  <div class="profile-summary" *ngIf="hasEmployeeRecord && employee">
+    <img *ngIf="employee.image" [src]="employeePhotoUrl(employee.image)" width="120" />
+    <div class="photo-upload">
+      <label class="btn-edit">
+        {{ savingPhoto ? 'Uploading...' : 'Change Photo' }}
+        <input
+          type="file"
+          accept="image/*"
+          [disabled]="savingPhoto"
+          (change)="onPhotoSelected($event)"
+          hidden
+        />
+      </label>
+    </div>
+    <p><strong>Name:</strong> {{ employee.fullName }}</p>
+    <p><strong>Employee Code:</strong> {{ employee.employeeCode }}</p>
+    <p><strong>Email:</strong> {{ employee.email }}</p>
+    <p><strong>Department:</strong> {{ employee.departmentName }}</p>
+    <p><strong>Designation:</strong> {{ employee.designationTitle }}</p>
+    <p><strong>Office:</strong> {{ employee.officeName }}</p>
+    <p><strong>Manager:</strong> {{ employee.managerName || '-' }}</p>
+    <p><strong>Status:</strong> {{ employee.status }}</p>
+  </div>
+  <div class="settings-panel" *ngIf="hasEmployeeRecord">
+    <label>My Signature</label>
+    <div class="signature-box">
+      <img *ngIf="signatureUrl" [src]="signatureUrl" alt="Signature" class="signature-img" />
+      <span *ngIf="!signatureUrl" class="hint">No signature uploaded yet.</span>
+    </div>
+    <label class="btn-edit signature-upload-btn">
+      {{ savingSignature ? 'Uploading...' : 'Upload Signature' }}
+      <input
+        type="file"
+        accept="image/*"
+        [disabled]="savingSignature"
+        (change)="onSignatureSelected($event)"
+        hidden
+      />
+    </label>
+  </div>
+  <p class="hint" *ngIf="!hasEmployeeRecord">
+    This account has no linked employee record (typical for Admin/HR accounts created directly). You
+    can still manage your login email and password below.
+  </p>
+  <p class="hint" *ngIf="hasEmployeeRecord">
+    The fields above are managed by HR/Admin. You can update your personal and address details
+    below.
+  </p>
+  <form *ngIf="hasEmployeeRecord" [formGroup]="profileForm" (ngSubmit)="save()">
+    <label>Contract No</label>
+    <input type="text" formControlName="contractNo" placeholder="Enter Contract No" />
+    <label>Date of Birth</label>
+    <input type="date" formControlName="dateOfBirth" placeholder="Enter Date of Birth" />
+    <label>Gender</label>
+    <select formControlName="gender">
+      <option value="">Select Gender</option>
+      <option *ngFor="let g of genders" [value]="g">{{ g }}</option>
+    </select>
+    <label>Blood Group</label>
+    <input type="text" formControlName="bloodGroup" placeholder="Enter Blood Group" />
+    <h3>Present Address</h3>
+    <div formGroupName="presentAddress">
+      <label>Address Line 1</label>
+      <input type="text" formControlName="addressLine1" placeholder="Enter Address Line 1" />
+      <label>Address Line 2</label>
+      <input type="text" formControlName="addressLine2" placeholder="Enter Address Line 2" />
+      <label>Post Office</label>
+      <input type="text" formControlName="postOffice" placeholder="Enter Post Office" />
+      <label>Postal Code</label>
+      <input type="text" formControlName="postalCode" placeholder="Enter Postal Code" />
+      <label>Country</label>
+      <select formControlName="countryId" (change)="onCountryChange('presentAddress')">
+        <option value="">Select Country</option>
+        <option *ngFor="let c of countries" [value]="c.id">{{ c.countryName }}</option>
+      </select>
+      <label>Division</label>
+      <select formControlName="divisionId" (change)="onDivisionChange('presentAddress')">
+        <option value="">Select Division</option>
+        <option *ngFor="let d of presentDivisions" [value]="d.id">{{ d.name }}</option>
+      </select>
+      <label>District</label>
+      <select formControlName="districtId" (change)="onDistrictChange('presentAddress')">
+        <option value="">Select District</option>
+        <option *ngFor="let d of presentDistricts" [value]="d.id">{{ d.districtsName }}</option>
+      </select>
+      <label>Police Station</label>
+      <select formControlName="policeStationId">
+        <option value="">Select Police Station</option>
+        <option *ngFor="let p of presentPoliceStations" [value]="p.id">{{ p.name }}</option>
+      </select>
+    </div>
+    <h3>Permanent Address</h3>
+    <div formGroupName="permanentAddress">
+      <label>Address Line 1</label>
+      <input type="text" formControlName="addressLine1" placeholder="Enter Address Line 1" />
+      <label>Address Line 2</label>
+      <input type="text" formControlName="addressLine2" placeholder="Enter Address Line 2" />
+      <label>Post Office</label>
+      <input type="text" formControlName="postOffice" placeholder="Enter Post Office" />
+      <label>Postal Code</label>
+      <input type="text" formControlName="postalCode" placeholder="Enter Postal Code" />
+      <label>Country</label>
+      <select formControlName="countryId" (change)="onCountryChange('permanentAddress')">
+        <option value="">Select Country</option>
+        <option *ngFor="let c of countries" [value]="c.id">{{ c.countryName }}</option>
+      </select>
+      <label>Division</label>
+      <select formControlName="divisionId" (change)="onDivisionChange('permanentAddress')">
+        <option value="">Select Division</option>
+        <option *ngFor="let d of permanentDivisions" [value]="d.id">{{ d.name }}</option>
+      </select>
+      <label>District</label>
+      <select formControlName="districtId" (change)="onDistrictChange('permanentAddress')">
+        <option value="">Select District</option>
+        <option *ngFor="let d of permanentDistricts" [value]="d.id">{{ d.districtsName }}</option>
+      </select>
+      <label>Police Station</label>
+      <select formControlName="policeStationId">
+        <option value="">Select Police Station</option>
+        <option *ngFor="let p of permanentPoliceStations" [value]="p.id">{{ p.name }}</option>
+      </select>
+    </div>
+    <button type="submit" [disabled]="loading">{{ loading ? 'Saving...' : 'Save Changes' }}</button>
+  </form>
+  <h3>Account Settings</h3>
+  <div class="settings-panel">
+    <div class="settings-summary" *ngIf="!editingAccount">
+      <div>
+        <p><strong>Name:</strong> {{ emailForm.value.fullName }}</p>
+        <p><strong>Email:</strong> {{ emailForm.value.email }}</p>
+      </div>
+      <button type="button" class="btn-edit" (click)="toggleEditAccount()">Edit</button>
+    </div>
+    <form
+      *ngIf="editingAccount"
+      [formGroup]="emailForm"
+      (ngSubmit)="saveEmail()"
+      class="settings-form"
+    >
+      <label>Full Name</label>
+      <input type="text" formControlName="fullName" placeholder="Enter Full Name" />
+      <span
+        class="field-error"
+        *ngIf="emailForm.get('fullName')?.invalid && emailForm.get('fullName')?.touched"
+      >
+        Full name is required.
+      </span>
+      <label>Email Address</label>
+      <input type="email" formControlName="email" placeholder="Enter Email" />
+      <span
+        class="field-error"
+        *ngIf="emailForm.get('email')?.invalid && emailForm.get('email')?.touched"
+      >
+        Please enter a valid email address.
+      </span>
+      <div class="settings-actions">
+        <button type="submit" [disabled]="emailSaving">
+          {{ emailSaving ? 'Saving...' : 'Save' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="toggleEditAccount()">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="settings-panel">
+    <div class="settings-summary" *ngIf="!editingPassword">
+      <div>
+        <p><strong>Password:</strong> ********</p>
+      </div>
+      <button type="button" class="btn-edit" (click)="togglePasswordForm()">Change Password</button>
+    </div>
+    <form
+      *ngIf="editingPassword"
+      [formGroup]="passwordForm"
+      (ngSubmit)="changePassword()"
+      class="settings-form"
+    >
+      <label>Current Password</label>
+      <input type="password" formControlName="oldPassword" placeholder="Enter Password" />
+      <label>New Password</label>
+      <input type="password" formControlName="newPassword" placeholder="Enter New Password" />
+      <label>Confirm New Password</label>
+      <input type="password" formControlName="confirmPassword" placeholder="Confirm Password" />
+      <span
+        class="field-error"
+        *ngIf="
+          passwordForm.value.newPassword &&
+          passwordForm.value.confirmPassword &&
+          passwordForm.value.newPassword !== passwordForm.value.confirmPassword
+        "
+      >
+        Passwords do not match.
+      </span>
+      <div class="settings-actions">
+        <button type="submit" [disabled]="passwordSaving">
+          {{ passwordSaving ? 'Saving...' : 'Save' }}
+        </button>
+        <button type="button" class="btn-cancel" (click)="togglePasswordForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

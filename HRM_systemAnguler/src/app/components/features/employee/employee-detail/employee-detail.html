@@ -1,0 +1,190 @@
+<div class="container py-5" *ngIf="employee">
+  <div class="card shadow-lg border-0 rounded-4 overflow-hidden">
+    <div class="profile-header text-white p-4">
+      <div class="row align-items-center">
+        <div class="col-md-2 text-center">
+          <img
+            *ngIf="employee.image; else avatar"
+            [src]="employeePhotoUrl(employee.image)"
+            class="rounded-circle border border-4 border-white shadow"
+            width="140"
+            height="140"
+            style="object-fit: cover"
+          />
+          <ng-template #avatar>
+            <div class="avatar-circle">
+              {{ getInitials(employee.fullName) }}
+            </div>
+          </ng-template>
+        </div>
+        <div class="col-md-10">
+          <h2 class="fw-bold mb-1">
+            {{ employee.fullName }}
+          </h2>
+          <p class="mb-1">
+            {{ employee.designationTitle }}
+          </p>
+          <span class="badge bg-light text-dark px-3 py-2">
+            {{ employee.employeeCode }}
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body p-4">
+      <div class="row g-4">
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white">
+              <h5 class="mb-0 profile-section-title">Personal Information</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-borderless">
+                <tr>
+                  <th>Email</th>
+                  <td>{{ employee.email }}</td>
+                </tr>
+                <tr>
+                  <th>Gender</th>
+                  <td>{{ employee.gender }}</td>
+                </tr>
+                <tr>
+                  <th>Blood Group</th>
+                  <td>{{ employee.bloodGroup }}</td>
+                </tr>
+                <tr>
+                  <th>Date of Birth</th>
+                  <td>{{ employee.dateOfBirth | date: 'dd MMM yyyy' }}</td>
+                </tr>
+                <tr>
+                  <th>Status</th>
+                  <td>
+                    <span class="badge bg-success">
+                      {{ employee.status }}
+                    </span>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-header bg-white">
+              <h5 class="mb-0 profile-section-title">Organization</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-borderless">
+                <tr>
+                  <th>Department</th>
+                  <td>{{ employee.departmentName }}</td>
+                </tr>
+                <tr>
+                  <th>Designation</th>
+                  <td>{{ employee.designationTitle }}</td>
+                </tr>
+                <tr>
+                  <th>Office</th>
+                  <td>{{ employee.officeName }}</td>
+                </tr>
+                <tr>
+                  <th>Manager</th>
+                  <td>{{ employee.managerName }}</td>
+                </tr>
+                <tr>
+                  <th>Joining Date</th>
+                  <td>{{ employee.joiningDate | date: 'dd MMM yyyy' }}</td>
+                </tr>
+                <tr>
+                  <th>Employment</th>
+                  <td>{{ employee.employmentType }}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+              <h5 class="mb-0 profile-section-title">Present Address</h5>
+            </div>
+            <div class="card-body">
+              <table
+                class="table table-borderless"
+                *ngIf="employee.presentAddress; else noPresentAddress"
+              >
+                <tr>
+                  <th>Address</th>
+                  <td>{{ employee.presentAddress.addressLine1 || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Post Office</th>
+                  <td>{{ employee.presentAddress.postOffice || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Police Station</th>
+                  <td>{{ employee.presentAddress.policeStationName || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>District</th>
+                  <td>{{ employee.presentAddress.districtName || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Division</th>
+                  <td>{{ employee.presentAddress.divisionName || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Country</th>
+                  <td>{{ employee.presentAddress.countryName || '-' }}</td>
+                </tr>
+              </table>
+              <ng-template #noPresentAddress>
+                <p class="text-muted mb-0">No present address on file.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white">
+              <h5 class="mb-0 profile-section-title">Permanent Address</h5>
+            </div>
+            <div class="card-body">
+              <table
+                class="table table-borderless"
+                *ngIf="employee.permanentAddress; else noPermanentAddress"
+              >
+                <tr>
+                  <th>Address</th>
+                  <td>{{ employee.permanentAddress.addressLine1 || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Post Office</th>
+                  <td>{{ employee.permanentAddress.postOffice || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Police Station</th>
+                  <td>{{ employee.permanentAddress.policeStationName || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>District</th>
+                  <td>{{ employee.permanentAddress.districtName || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Division</th>
+                  <td>{{ employee.permanentAddress.divisionName || '-' }}</td>
+                </tr>
+                <tr>
+                  <th>Country</th>
+                  <td>{{ employee.permanentAddress.countryName || '-' }}</td>
+                </tr>
+              </table>
+              <ng-template #noPermanentAddress>
+                <p class="text-muted mb-0">No permanent address on file.</p>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

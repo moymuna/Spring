@@ -1,0 +1,225 @@
+﻿/* Dashboard primitives live in src/styles.css; only employee-specific bits here. */
+.status-text {
+  font-size: 22px;
+}
+.status-text.ok {
+  color: var(--color-success);
+}
+.status-text.off {
+  color: var(--color-text-muted);
+}
+.stat-value.small {
+  font-size: 20px;
+}
+.clock-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: var(--radius-control);
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  cursor: pointer;
+}
+.clock-btn.in {
+  background: var(--color-success);
+}
+.clock-btn.out {
+  background: var(--color-danger);
+}
+.clock-btn:disabled {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* Attendance calendar */
+.cal {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-dow {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-text-muted);
+  padding-bottom: 6px;
+}
+.cal-day {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 8px;
+  font-size: 13px;
+  color: var(--color-text-primary);
+}
+.cal-day.blank {
+  visibility: hidden;
+}
+.cal-day.today {
+  border: 2px solid var(--color-accent);
+  font-weight: 700;
+}
+.dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  display: inline-block;
+  background: var(--color-text-muted);
+}
+.dot.present {
+  background: var(--color-success);
+}
+.dot.late {
+  background: var(--color-warning);
+}
+.dot.absent {
+  background: var(--color-danger);
+}
+.dot.holiday {
+  background: #94a3b8;
+}
+.cal-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 14px;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+.cal-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Leave bars */
+.bars {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.bar-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+.bar-head strong {
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+.bar-track {
+  height: 7px;
+  border-radius: 999px;
+  background: var(--color-bg-subtle);
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--color-success);
+}
+.bars .empty {
+  color: var(--color-text-muted);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Holidays */
+.holiday-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.holiday-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.holiday-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.holiday-list div {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  line-height: 1.3;
+}
+.holiday-list strong {
+  font-size: 14px;
+}
+.holiday-list small {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+.days-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  line-height: 1.2;
+}
+.days-left b {
+  font-size: 16px;
+  color: var(--color-text-primary);
+}
+.days-left small {
+  font-size: 10px;
+  color: var(--color-text-muted);
+}
+.holiday-list .empty {
+  color: var(--color-text-muted);
+  font-size: 13px;
+}
+
+/* Month summary chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.chip {
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+.chip.green {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+.chip.red {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+.chip.amber {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+.chip.purple {
+  background: #ede9fe;
+  color: #7c3aed;
+}
+.chip.blue {
+  background: var(--color-accent-soft);
+  color: var(--color-accent);
+}
+.chip.gray {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+}

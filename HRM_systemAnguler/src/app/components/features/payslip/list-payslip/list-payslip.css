@@ -1,0 +1,109 @@
+.container {
+  background: var(--color-surface);
+  padding: 25px;
+  border-radius: 8px;
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th,
+td {
+  border: 1px solid var(--color-border);
+  padding: 10px;
+  text-align: center;
+}
+th {
+  background: var(--color-bg-subtle);
+}
+.add-btn {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+}
+.edit-btn {
+  background: var(--color-success);
+  color: var(--color-surface);
+  padding: 6px 12px;
+  border-radius: 4px;
+  text-decoration: none;
+}
+.delete-btn {
+  background: var(--color-danger);
+  color: var(--color-surface);
+  border: none;
+  padding: 7px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 5px;
+}
+.download-btn {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 7px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+}
+.status-badge.paid {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+.status-badge.processed {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+.status-badge.failed {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+.status-badge.draft {
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+}
+
+.days {
+  color: var(--color-text-muted);
+  font-size: 11px;
+}
+
+.deduction-cell {
+  text-align: left;
+}
+.breakdown small {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 11px;
+  white-space: nowrap;
+}
+

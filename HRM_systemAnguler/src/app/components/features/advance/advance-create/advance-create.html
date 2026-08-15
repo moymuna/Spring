@@ -1,0 +1,70 @@
+<div class="container">
+  <h2>Request Salary Advance</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="advanceForm" (ngSubmit)="saveAdvance()">
+    <div class="form-group" *ngIf="!isEmployeeOnly">
+      <label>Employee</label>
+      <select formControlName="employeeId">
+        <option value="">Select Employee</option>
+        <option *ngFor="let emp of employees" [value]="emp.id">
+          {{ emp.employeeCode }} - {{ emp.fullName }}
+        </option>
+      </select>
+      <small class="validation" *ngIf="f['employeeId'].touched && f['employeeId'].invalid">
+        Employee is required
+      </small>
+    </div>
+    <div class="form-group" *ngIf="isEmployeeOnly">
+      <label>Employee</label>
+      <input type="text" [value]="selfEmployeeName" disabled />
+    </div>
+    <div class="form-group">
+      <label>Amount</label>
+      <input type="number" formControlName="amount" placeholder="Enter Amount" />
+      <small class="hint" *ngIf="maxAdvance !== null">
+        Gross monthly salary {{ grossSalary | number: '1.2-2' }} — you may request up to
+        {{ maxAdvance | number: '1.2-2' }} (3 months).
+      </small>
+      <small class="validation" *ngIf="f['amount'].touched && f['amount'].invalid">
+        Amount must be greater than zero
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Request Date</label>
+      <input type="date" formControlName="requestDate" />
+    </div>
+    <div class="form-group">
+      <label>Required By</label>
+      <input type="date" formControlName="requiredByDate" />
+    </div>
+    <div class="form-group">
+      <label>Repayment Installments</label>
+      <select formControlName="installments">
+        <option *ngFor="let n of installmentOptions" [value]="n">
+          {{ n }} month{{ n > 1 ? 's' : '' }}
+        </option>
+      </select>
+      <small class="hint">
+        Monthly deduction: <strong>{{ monthlyDeduction | number: '1.2-2' }}</strong>
+      </small>
+    </div>
+    <div class="form-group">
+      <label>Reason</label>
+      <textarea rows="4" formControlName="reason" placeholder="Enter Reason"></textarea>
+      <small class="validation" *ngIf="f['reason'].touched && f['reason'].invalid">
+        Reason is required
+      </small>
+    </div>
+    <div class="button-group">
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Submitting...' : 'Submit Request' }}
+      </button>
+      <a routerLink="/advance" class="cancel-btn">Cancel</a>
+    </div>
+  </form>
+</div>

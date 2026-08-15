@@ -1,0 +1,117 @@
+.salary-list-container {
+  background: var(--color-surface);
+  padding: 25px;
+  border-radius: 10px;
+  margin: 20px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--color-text-secondary);
+}
+.top-action {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+.add-btn {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+.add-btn:hover {
+  background: var(--color-accent);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+table th {
+  background: var(--color-bg-subtle);
+  padding: 12px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+  font-weight: 600;
+}
+table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid var(--color-border);
+}
+tr:hover {
+  background: var(--color-bg-subtle);
+}
+.edit-btn {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 7px 15px;
+  margin-right: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.edit-btn:hover {
+  background: var(--color-accent-hover);
+}
+.delete-btn {
+  background: var(--color-danger);
+  color: var(--color-surface);
+  border: none;
+  padding: 7px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background: var(--color-danger);
+}
+.active {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+.inactive {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+}
+.success-message {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.error-message {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.loading {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-secondary);
+}
+.no-data {
+  text-align: center;
+  padding: 30px;
+  color: var(--color-text-secondary);
+  font-size: 16px;
+}
+@media (max-width: 900px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}

@@ -1,0 +1,114 @@
+.container {
+  max-width: 900px;
+  margin: 30px auto;
+  background: var(--color-surface);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+}
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+label {
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+input,
+select {
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 15px;
+}
+.validation {
+  color: var(--color-danger);
+  font-size: 12px;
+  margin-top: 4px;
+}
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin: 25px 0;
+  padding: 15px;
+  background: var(--color-bg-subtle);
+  border-radius: 8px;
+}
+.summary-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.summary-label {
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+.summary-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+.summary-net .summary-value {
+  color: var(--color-success);
+}
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.checkbox-group input {
+  width: auto;
+}
+.checkbox-group label {
+  margin-bottom: 0;
+}
+.button-group {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  font-size: 16px;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.cancel-btn {
+  padding: 12px 20px;
+  border-radius: 6px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+.success {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.error {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}

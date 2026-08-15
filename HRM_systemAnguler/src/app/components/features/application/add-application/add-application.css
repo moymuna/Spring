@@ -1,0 +1,33 @@
+.container {
+  width: 500px;
+  margin: auto;
+  background: var(--color-surface);
+  padding: 30px;
+  box-shadow: 0 0 10px var(--color-border);
+}
+h2 {
+  text-align: center;
+}
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+}
+button {
+  margin-top: 20px;
+  width: 100%;
+  padding: 12px;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  cursor: pointer;
+}
+button:hover {
+  background: var(--color-accent-hover);
+}

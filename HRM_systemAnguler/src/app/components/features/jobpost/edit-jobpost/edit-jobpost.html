@@ -1,0 +1,71 @@
+<div class="jobpost-container">
+  <h2>Edit Job Post</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form (ngSubmit)="update()">
+    <label>Job Title</label>
+    <input type="text" [(ngModel)]="jobPost.title" name="title" placeholder="Enter Job Title" />
+    <label>Description</label>
+    <textarea [(ngModel)]="jobPost.description" name="description" placeholder="Enter Description">
+    </textarea>
+    <label>Requirements</label>
+    <textarea
+      [(ngModel)]="jobPost.requirements"
+      name="requirements"
+      placeholder="Enter Requirements"
+    >
+    </textarea>
+    <label>Location</label>
+    <input
+      type="text"
+      [(ngModel)]="jobPost.location"
+      name="location"
+      placeholder="Enter Location"
+    />
+    <label>Minimum Salary</label>
+    <input
+      type="number"
+      [(ngModel)]="jobPost.minSalary"
+      name="minSalary"
+      placeholder="Enter Minimum Salary"
+    />
+    <label>Maximum Salary</label>
+    <input
+      type="number"
+      [(ngModel)]="jobPost.maxSalary"
+      name="maxSalary"
+      placeholder="Enter Maximum Salary"
+    />
+    <label>Posted Date</label>
+    <input
+      type="date"
+      [(ngModel)]="jobPost.postedDate"
+      name="postedDate"
+      placeholder="Enter Posted Date"
+    />
+    <label>Deadline</label>
+    <input
+      type="date"
+      [(ngModel)]="jobPost.deadline"
+      name="deadline"
+      placeholder="Enter Deadline"
+    />
+    <label>Status</label>
+    <select [(ngModel)]="jobPost.status" name="status">
+      <option *ngFor="let status of statusList" [value]="status">
+        {{ status }}
+      </option>
+    </select>
+    <label>Department</label>
+    <select [(ngModel)]="jobPost.departmentId" name="departmentId">
+      <option *ngFor="let department of departments" [ngValue]="department.id">
+        {{ department.departmentName }}
+      </option>
+    </select>
+    <button type="submit">Update Job Post</button>
+  </form>
+</div>

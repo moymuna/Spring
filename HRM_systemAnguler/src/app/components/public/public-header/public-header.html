@@ -1,0 +1,47 @@
+<header class="public-header">
+  <div class="public-header-inner">
+    <a routerLink="/" class="brand">
+      <span class="brand-mark">HRM</span>
+      <span class="brand-name">HRM System</span>
+    </a>
+    <nav class="public-nav" [class.open]="menuOpen">
+      <a
+        routerLink="/"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        (click)="closeMenu()"
+        >Home</a
+      >
+      <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
+      <a
+        *ngIf="!isLoginPage"
+        routerLink="/login"
+        class="btn-ghost nav-only-action"
+        (click)="closeMenu()"
+        >Login</a
+      >
+      <a
+        *ngIf="!isRegisterPage"
+        routerLink="/register"
+        class="btn-solid nav-only-action"
+        (click)="closeMenu()"
+        >Register as Applicant</a
+      >
+    </nav>
+    <div class="public-header-actions">
+      <a *ngIf="!isLoginPage" routerLink="/login" class="btn-ghost">Login</a>
+      <a *ngIf="!isRegisterPage" routerLink="/register" class="btn-solid">Register as Applicant</a>
+    </div>
+    <button
+      type="button"
+      class="menu-toggle"
+      (click)="toggleMenu()"
+      [attr.aria-expanded]="menuOpen"
+      aria-label="Toggle navigation"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+</header>

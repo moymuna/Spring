@@ -1,0 +1,48 @@
+<div class="container">
+  <h2>Edit Leave Type</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="leaveTypeForm" (ngSubmit)="updateLeaveType()">
+    <div class="form-group">
+      <label>Leave Type</label>
+      <select formControlName="name">
+        <option value="">Select Leave Type</option>
+        <option *ngFor="let type of leaveTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Maximum Days Per Year</label>
+      <input
+        type="number"
+        formControlName="maxDaysPerYear"
+        placeholder="Enter Maximum Days Per Year"
+      />
+    </div>
+    <div class="form-group">
+      <label>Max Carry Forward Days</label>
+      <input
+        type="number"
+        formControlName="maxCarryForwardDays"
+        placeholder="0 = unused days lapse at year end"
+      />
+    </div>
+    <div class="form-group">
+      <label>Paid Leave</label>
+      <select formControlName="paid">
+        <option [ngValue]="true">Yes</option>
+        <option [ngValue]="false">No</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <textarea rows="4" formControlName="description" placeholder="Enter Description"> </textarea>
+    </div>
+    <button type="submit">Update Leave Type</button>
+  </form>
+</div>

@@ -1,0 +1,97 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>{{ isEmployeeOnly ? 'My Advance Requests' : 'Advance Requests' }}</h2>
+    <a routerLink="/advance/add" class="add-btn"> + Request Advance </a>
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th *ngIf="!isEmployeeOnly">Employee</th>
+        <th>Amount</th>
+        <th>Requested</th>
+        <th>Required By</th>
+        <th>Installments</th>
+        <th>Monthly Deduction</th>
+        <th>Recovered</th>
+        <th>Outstanding</th>
+        <th>Status</th>
+        <th>Reason</th>
+        <th *ngIf="!isEmployeeOnly">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let advance of advances">
+        <td>{{ advance.id }}</td>
+        <td *ngIf="!isEmployeeOnly">{{ advance.employeeName }}</td>
+        <td>{{ advance.amount | number: '1.2-2' }}</td>
+        <td>{{ advance.requestDate }}</td>
+        <td>{{ advance.requiredByDate || '-' }}</td>
+        <td>{{ advance.installments }}</td>
+        <td>{{ advance.monthlyDeduction | number: '1.2-2' }}</td>
+        <td>{{ advance.recoveredAmount | number: '1.2-2' }}</td>
+        <td>{{ advance.outstandingAmount | number: '1.2-2' }}</td>
+        <td>
+          <span class="status-badge" [ngClass]="advance.status?.toLowerCase()">
+            {{ advance.status }}
+          </span>
+          <div class="reject-reason" *ngIf="advance.status === 'REJECTED' && advance.rejectionReason">
+            {{ advance.rejectionReason }}
+          </div>
+        </td>
+        <td>{{ advance.reason }}</td>
+        <td *ngIf="!isEmployeeOnly">
+          <button
+            class="edit-btn"
+            *ngIf="advance.status === 'PENDING'"
+            (click)="editAdvance(advance.id!)"
+          >
+            Edit
+          </button>
+          <button
+            class="approve-btn"
+            *ngIf="canDecide && advance.status === 'PENDING'"
+            (click)="approveAdvance(advance.id!)"
+          >
+            Approve
+          </button>
+          <button
+            class="reject-btn"
+            *ngIf="canDecide && advance.status === 'PENDING'"
+            (click)="rejectAdvance(advance.id!)"
+          >
+            Reject
+          </button>
+          <button
+            class="pay-btn"
+            *ngIf="canDisburse && advance.status === 'APPROVED'"
+            (click)="markAsPaid(advance.id!)"
+          >
+            Mark Paid
+          </button>
+          <button
+            class="recover-btn"
+            *ngIf="canDisburse && advance.status === 'PAID'"
+            (click)="recordRecovery(advance)"
+          >
+            Record Recovery
+          </button>
+          <button class="delete-btn" (click)="deleteAdvance(advance.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="advances.length === 0">No advance requests found.</div>
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(page - 1)" [disabled]="page === 0">Prev</button>
+    <button *ngFor="let p of getPages()" (click)="changePage(p)" [class.active]="page === p">
+      {{ p + 1 }}
+    </button>
+    <button (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1">Next</button>
+  </div>
+</div>
+
+<app-modal-outlet (closed)="loadAdvances()"></app-modal-outlet>

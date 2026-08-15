@@ -1,0 +1,62 @@
+.department-container {
+  width: 600px;
+  margin: 30px auto;
+  background: var(--color-surface);
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: var(--color-text-secondary);
+}
+.form-group {
+  margin-bottom: 18px;
+}
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+  font-size: 15px;
+}
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+.button-area {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+}
+.update-btn {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.update-btn:hover {
+  background: var(--color-accent);
+}
+.cancel-btn {
+  background: var(--color-danger);
+  color: var(--color-surface);
+  border: none;
+  padding: 10px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.cancel-btn:hover {
+  background: var(--color-danger);
+}

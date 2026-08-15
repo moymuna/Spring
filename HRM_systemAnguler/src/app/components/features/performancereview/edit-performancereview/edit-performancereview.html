@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Edit Performance Review</h2>
+  <form [formGroup]="form" (ngSubmit)="update()">
+    <label> Employee ID </label>
+    <input type="number" formControlName="employeeId" placeholder="Enter Employee ID" />
+    <label> Reviewer ID </label>
+    <input type="number" formControlName="reviewerId" placeholder="Enter Reviewer ID" />
+    <label> Start Date </label>
+    <input type="date" formControlName="reviewPeriodStart" placeholder="Enter Start Date" />
+    <label> End Date </label>
+    <input type="date" formControlName="reviewPeriodEnd" placeholder="Enter End Date" />
+    <label> Rating </label>
+    <input type="number" step="0.1" formControlName="rating" placeholder="Enter Rating" />
+    <label> Strengths </label>
+    <textarea formControlName="strengths" placeholder="Enter Strengths"></textarea>
+    <label> Areas For Improvement </label>
+    <textarea
+      formControlName="areasForImprovement"
+      placeholder="Enter Areas For Improvement"
+    ></textarea>
+    <label> Comments </label>
+    <textarea formControlName="comments" placeholder="Enter Comments"></textarea>
+    <label> Status </label>
+    <select formControlName="status">
+      <option *ngFor="let s of statuses" [value]="s">
+        {{ s }}
+      </option>
+    </select>
+    <button>Update</button>
+  </form>
+</div>

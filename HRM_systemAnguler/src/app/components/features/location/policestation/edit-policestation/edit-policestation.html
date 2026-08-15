@@ -1,0 +1,47 @@
+<div class="station-container">
+  <h2>Edit Police Station</h2>
+  <form (ngSubmit)="update()">
+    <div class="form-group">
+      <label>Police Station Name</label>
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="station.name"
+        placeholder="Enter Police Station Name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label>Police Station Name BN</label>
+      <input
+        type="text"
+        name="nameBn"
+        [(ngModel)]="station.nameBn"
+        placeholder="Enter Police Station Name BN"
+      />
+    </div>
+    <div class="form-group">
+      <label>Postal Code</label>
+      <input
+        type="text"
+        name="postalCode"
+        [(ngModel)]="station.postalCode"
+        placeholder="Enter Postal Code"
+      />
+    </div>
+    <div class="form-group">
+      <label>District Id</label>
+      <input
+        type="number"
+        name="districtId"
+        [(ngModel)]="station.districtId"
+        placeholder="Enter District Id"
+        required
+      />
+    </div>
+    <div class="button-group">
+      <button type="submit">Update</button>
+      <button type="button" class="reset-btn" (click)="reset()">Reset</button>
+    </div>
+  </form>
+</div>

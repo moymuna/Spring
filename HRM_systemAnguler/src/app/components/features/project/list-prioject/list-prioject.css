@@ -1,0 +1,70 @@
+.project-container {
+  padding: 20px;
+  background: var(--color-surface);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--color-border);
+}
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.top-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+.top-section button {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th {
+  background: var(--color-bg-subtle);
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+td {
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+ul {
+  padding-left: 15px;
+  margin: 0;
+  text-align: left;
+}
+li {
+  list-style: none;
+}
+.edit {
+  background: var(--color-success);
+  color: var(--color-surface);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.delete {
+  background: var(--color-danger);
+  color: var(--color-surface);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.error {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}

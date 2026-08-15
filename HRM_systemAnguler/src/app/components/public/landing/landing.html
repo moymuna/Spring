@@ -1,0 +1,47 @@
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <span class="eyebrow">Human Resource Management</span>
+      <h1>Run your entire workforce from one place.</h1>
+      <p class="lead">
+        Employees, attendance, leave, payroll, recruitment and performance reviews — HRM System
+        brings every HR process together with role-based access for Admins, HR, Managers, Employees
+        and Applicants.
+      </p>
+      <div class="hero-cta">
+        <a routerLink="/login" class="btn-outline">Login</a>
+        <a routerLink="/register" class="btn-outline-solid">Register as Applicant</a>
+        <a href="#features" class="btn-text">See what's included &rarr;</a>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat" *ngFor="let s of stats">
+          <span class="hero-stat-value">{{ s.value }}</span>
+          <span class="hero-stat-label">{{ s.label }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="features" id="features">
+  <div class="features-inner">
+    <h2 class="section-title">Everything your HR team needs</h2>
+    <p class="section-subtitle">One system, five roles, one shared source of truth.</p>
+    <div class="feature-grid">
+      <div class="feature-card" *ngFor="let f of features">
+        <div class="feature-icon"><i class="bi" [ngClass]="f.icon"></i></div>
+        <h3>{{ f.title }}</h3>
+        <p>{{ f.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="final-cta">
+  <div class="final-cta-inner">
+    <div class="final-cta-header">
+      <span class="eyebrow">Get in touch</span>
+      <h2>We'd love to hear from you</h2>
+      <p>Questions about HRM System, or need help with your account? Send us a message below.</p>
+    </div>
+    <app-contact-form></app-contact-form>
+  </div>
+</section>

@@ -1,0 +1,121 @@
+.container {
+  background: var(--color-surface);
+  padding: 25px;
+  border-radius: 8px;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+th,
+td {
+  border: 1px solid var(--color-border);
+  padding: 10px;
+  text-align: center;
+}
+th {
+  background: var(--color-bg-subtle);
+}
+.add-btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+.edit-btn,
+.approve-btn,
+.reject-btn,
+.pay-btn,
+.recover-btn,
+.delete-btn {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+  color: var(--color-surface);
+}
+.edit-btn,
+.approve-btn {
+  background: var(--color-success);
+}
+.reject-btn {
+  background: var(--color-warning);
+}
+.pay-btn,
+.recover-btn {
+  background: var(--color-accent);
+}
+.delete-btn {
+  background: var(--color-danger);
+}
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+}
+.status-badge.pending {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}
+.status-badge.approved,
+.status-badge.settled {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+}
+.status-badge.rejected {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+}
+.reject-reason {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+.error {
+  background: var(--color-danger-bg);
+  color: var(--color-danger);
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+}
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: var(--color-text-muted);
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 20px;
+}
+.pagination button {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pagination button.active {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border-color: var(--color-accent);
+}
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

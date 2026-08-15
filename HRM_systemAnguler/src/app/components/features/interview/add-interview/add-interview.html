@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Schedule Interview</h2>
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <form (ngSubmit)="save()">
+    <div class="form-row">
+      <div class="form-group">
+        <label>Application</label>
+        <select [(ngModel)]="interview.applicationId" name="applicationId" required>
+          <option value="0">Select Application</option>
+          <option *ngFor="let a of applications" [value]="a.id">
+            {{ a.applicantName }} - {{ a.jobTitle }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Interviewer</label>
+        <select [(ngModel)]="interview.interviewerId" name="interviewerId" required>
+          <option value="0">Select Interviewer</option>
+          <option *ngFor="let u of interviewers" [value]="u.id">
+            {{ u.fullName }} ({{ u.role }})
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Interview Date</label>
+        <input
+          type="date"
+          [(ngModel)]="interview.interviewDate"
+          name="interviewDate"
+          required
+          placeholder="Enter Interview Date"
+        />
+      </div>
+      <div class="form-group">
+        <label>Result</label>
+        <select [(ngModel)]="interview.result" name="result">
+          <option *ngFor="let r of results" [value]="r">{{ r }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Feedback</label>
+      <textarea
+        rows="4"
+        [(ngModel)]="interview.feedback"
+        name="feedback"
+        placeholder="Enter Feedback"
+      ></textarea>
+    </div>
+    <button type="submit" class="save-btn">Schedule Interview</button>
+  </form>
+</div>

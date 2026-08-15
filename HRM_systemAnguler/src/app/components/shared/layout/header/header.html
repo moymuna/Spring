@@ -1,0 +1,48 @@
+<header class="topbar">
+  <button type="button" class="hamburger" (click)="toggleSidebar()" aria-label="Toggle menu">
+    <i class="bi bi-list"></i>
+  </button>
+
+  <h1 class="page-title">{{ pageTitle }}</h1>
+
+  <div class="topbar-right">
+    <div class="topbar-search">
+      <i class="bi bi-search"></i>
+      <input type="search" placeholder="Search..." [(ngModel)]="searchTerm" (keyup.enter)="search()" />
+    </div>
+
+    <div class="bell" (click)="toggleNotifications()">
+      <i class="bi bi-bell"></i>
+      <span class="bell-badge" *ngIf="unreadCount > 0">{{ unreadCount }}</span>
+      <div class="dropdown notifications" *ngIf="showNotifications">
+        <div class="dropdown-head">Notifications</div>
+        <div
+          class="notification-item"
+          *ngFor="let n of notifications"
+          [class.unread]="!n.read"
+          (click)="markRead(n)"
+        >
+          <p>{{ n.message }}</p>
+          <small>{{ n.createdAt | date: 'short' }}</small>
+        </div>
+        <div class="dropdown-empty" *ngIf="notifications.length === 0">No notifications.</div>
+      </div>
+    </div>
+
+    <div class="profile" (click)="toggleDropdown()">
+      <img [src]="photoUrl" alt="profile" />
+      <span class="profile-text">
+        <strong>{{ user?.fullName || 'User' }}</strong>
+        <small>{{ roleLabel }}</small>
+      </span>
+      <i class="bi bi-chevron-down"></i>
+      <div class="dropdown profile-dropdown" *ngIf="showDropdown">
+        <button type="button" (click)="goToDashboard()"><i class="bi bi-grid-1x2"></i>Dashboard</button>
+        <a routerLink="/my-profile"><i class="bi bi-person"></i>My Profile</a>
+        <button type="button" class="danger" (click)="logout()">
+          <i class="bi bi-box-arrow-right"></i>Logout
+        </button>
+      </div>
+    </div>
+  </div>
+</header>

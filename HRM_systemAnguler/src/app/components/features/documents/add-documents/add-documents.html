@@ -1,0 +1,41 @@
+<div class="document-container">
+  <h2>Add Document</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="documentForm" (ngSubmit)="saveDocument()">
+    <div class="form-group">
+      <label> Document Name </label>
+      <input type="text" formControlName="documentName" placeholder="Enter Document Name" />
+    </div>
+    <div class="form-group">
+      <label> Document Type </label>
+      <select formControlName="documentType">
+        <option value="">Select Type</option>
+        <option *ngFor="let type of documentTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label> File </label>
+      <input
+        type="file"
+        accept=".pdf,.doc,.docx,.jpg,.jpeg,.png,.gif"
+        (change)="onFileSelected($event)"
+      />
+    </div>
+    <div class="form-group" *ngIf="!isEmployeeOnly">
+      <label> Employee ID </label>
+      <input type="number" formControlName="employeeId" placeholder="Enter Employee ID" />
+    </div>
+    <div class="form-group" *ngIf="isEmployeeOnly">
+      <label> Employee </label>
+      <input type="text" [value]="selfEmployeeName" disabled />
+    </div>
+    <button type="submit">Save Document</button>
+  </form>
+</div>

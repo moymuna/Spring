@@ -1,0 +1,46 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Notice List</h2>
+    <a *ngIf="!isEmployeeOnly" routerLink="/notice/add" class="add-btn"> + Add Notice </a>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Publish Date</th>
+        <th>Office</th>
+        <th *ngIf="!isEmployeeOnly">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let notice of notices">
+        <td>
+          {{ notice.id }}
+        </td>
+        <td>
+          {{ notice.title }}
+        </td>
+        <td>
+          {{ notice.description }}
+        </td>
+        <td>
+          {{ notice.publishDate }}
+        </td>
+        <td>
+          {{ notice.officeName }}
+        </td>
+        <td *ngIf="!isEmployeeOnly">
+          <a [routerLink]="['/notice/edit', notice.id]" class="edit-btn"> Edit </a>
+          <button (click)="deleteNotice(notice.id!)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal-outlet (closed)="loadNotices()"></app-modal-outlet>

@@ -1,0 +1,34 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Interviews</h2>
+    <a routerLink="/interview/add" class="add-btn">+ Schedule Interview</a>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Applicant</th>
+        <th>Interviewer</th>
+        <th>Date</th>
+        <th>Result</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let i of interviews">
+        <td>{{ i.id }}</td>
+        <td>{{ i.applicantName }}</td>
+        <td>{{ i.interviewerName }}</td>
+        <td>{{ i.interviewDate }}</td>
+        <td>{{ i.result }}</td>
+        <td>
+          <a [routerLink]="['/interview/edit', i.id]" class="edit-btn">Edit</a>
+          <button (click)="delete(i.id!)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="interviews.length === 0">No Interviews Found</div>
+</div>
+
+<app-modal-outlet (closed)="load()"></app-modal-outlet>

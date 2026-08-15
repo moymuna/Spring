@@ -1,0 +1,65 @@
+<div class="payroll-container">
+  <h2>Edit Payroll</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="payrollForm" (ngSubmit)="updatePayroll()">
+    <div class="row">
+      <div class="group">
+        <label> Month </label>
+        <input type="number" formControlName="month" placeholder="Enter Month" />
+      </div>
+      <div class="group">
+        <label> Year </label>
+        <input type="number" formControlName="year" placeholder="Enter Year" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="group">
+        <label> Gross Salary </label>
+        <input type="number" formControlName="grossSalary" placeholder="Enter Gross Salary" />
+      </div>
+      <div class="group">
+        <label> Deduction </label>
+        <input type="number" formControlName="totalDeductions" placeholder="Enter Deduction" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="group">
+        <label> Net Salary </label>
+        <input type="number" formControlName="netSalary" placeholder="Enter Net Salary" />
+      </div>
+      <div class="group">
+        <label> Paid Days </label>
+        <input type="number" formControlName="paidDays" placeholder="Enter Paid Days" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="group">
+        <label> LOP Days </label>
+        <input type="number" formControlName="lopDays" placeholder="Enter LOP Days" />
+      </div>
+      <div class="group">
+        <label> Status </label>
+        <select formControlName="status">
+          <option *ngFor="let s of statuses" [value]="s">
+            {{ s }}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="group">
+      <label> Employee </label>
+      <select formControlName="employeeId">
+        <option value="">Select Employee</option>
+        <option *ngFor="let e of employees" [value]="e.id">
+          {{ e.fullName }} ({{ e.employeeCode }})
+        </option>
+      </select>
+    </div>
+    <button>Update Payroll</button>
+  </form>
+</div>

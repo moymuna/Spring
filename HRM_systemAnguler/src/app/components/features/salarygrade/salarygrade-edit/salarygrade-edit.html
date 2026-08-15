@@ -1,0 +1,86 @@
+<div class="container">
+  <h2>Edit Salary Grade</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="gradeForm" (ngSubmit)="updateGrade()">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Grade Number</label>
+        <input type="number" min="1" formControlName="gradeNumber" />
+        <small class="validation" *ngIf="f['gradeNumber'].touched && f['gradeNumber'].invalid">
+          Grade must be 1 or higher
+        </small>
+      </div>
+      <div class="form-group">
+        <label>Title</label>
+        <input type="text" formControlName="title" placeholder="Enter Title" />
+        <small class="validation" *ngIf="f['title'].touched && f['title'].invalid">
+          Title is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label>Basic Salary</label>
+        <input type="number" formControlName="basicSalary" placeholder="Enter Basic Salary" />
+        <small class="validation" *ngIf="f['basicSalary'].touched && f['basicSalary'].invalid">
+          Basic salary is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label>HRA</label>
+        <input type="number" formControlName="hra" placeholder="Enter HRA" />
+      </div>
+      <div class="form-group">
+        <label>Conveyance Allowance</label>
+        <input type="number" formControlName="conveyanceAllowance" placeholder="Enter Conveyance" />
+      </div>
+      <div class="form-group">
+        <label>Medical Allowance</label>
+        <input type="number" formControlName="medicalAllowance" placeholder="Enter Medical" />
+      </div>
+      <div class="form-group">
+        <label>Special Allowance</label>
+        <input type="number" formControlName="specialAllowance" placeholder="Enter Special" />
+      </div>
+      <div class="form-group">
+        <label>Provident Fund</label>
+        <input type="number" formControlName="providentFund" placeholder="Enter Provident Fund" />
+      </div>
+      <div class="form-group">
+        <label>Professional Tax</label>
+        <input type="number" formControlName="professionalTax" placeholder="Enter Professional Tax" />
+      </div>
+      <div class="form-group">
+        <label>Income Tax</label>
+        <input type="number" formControlName="incomeTax" placeholder="Enter Income Tax" />
+      </div>
+    </div>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <span class="summary-label">Gross Monthly</span>
+        <span class="summary-value">{{ grossMonthly | number: '1.2-2' }}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Total Deductions</span>
+        <span class="summary-value">{{ totalDeductions | number: '1.2-2' }}</span>
+      </div>
+      <div class="summary-item summary-net">
+        <span class="summary-label">Net Monthly</span>
+        <span class="summary-value">{{ netMonthly | number: '1.2-2' }}</span>
+      </div>
+    </div>
+    <div class="checkbox-group">
+      <input type="checkbox" formControlName="active" />
+      <label>Active</label>
+    </div>
+    <div class="button-group">
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Updating...' : 'Update Grade' }}
+      </button>
+      <a routerLink="/salarygrade" class="cancel-btn">Cancel</a>
+    </div>
+  </form>
+</div>

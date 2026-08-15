@@ -1,0 +1,47 @@
+.payroll-container {
+  width: 80%;
+  margin: 30px auto;
+  padding: 25px;
+  background: var(--color-surface);
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--color-border);
+}
+h2 {
+  text-align: center;
+}
+.row {
+  display: flex;
+  gap: 20px;
+}
+.group {
+  flex: 1;
+  margin-bottom: 15px;
+}
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: 5px;
+}
+button {
+  width: 100%;
+  padding: 12px;
+  background: var(--color-success);
+  color: var(--color-surface);
+  border: none;
+  border-radius: 5px;
+}
+.success {
+  background: var(--color-success-bg);
+  padding: 10px;
+}
+.error {
+  background: var(--color-danger-bg);
+  padding: 10px;
+}

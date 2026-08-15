@@ -1,0 +1,37 @@
+<div class="container">
+  <h2>Company Bank Account</h2>
+  <p class="hint">
+    The account salaries are paid from. It appears in payroll audit records; only Admin can change
+    it.
+  </p>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="bankForm" (ngSubmit)="save()">
+    <div class="form-group">
+      <label>Company Name</label>
+      <input type="text" formControlName="companyName" placeholder="Enter Company Name" />
+    </div>
+    <div class="form-group">
+      <label>Bank Name</label>
+      <input type="text" formControlName="bankName" placeholder="Enter Bank Name" />
+    </div>
+    <div class="form-group">
+      <label>Branch</label>
+      <input type="text" formControlName="bankBranch" placeholder="Enter Branch" />
+    </div>
+    <div class="form-group">
+      <label>Account Holder Name</label>
+      <input type="text" formControlName="accountName" placeholder="Enter Account Holder Name" />
+    </div>
+    <div class="form-group">
+      <label>Account Number</label>
+      <input type="text" formControlName="accountNumber" placeholder="Enter Account Number" />
+    </div>
+    <button type="submit" *ngIf="isAdmin">Save Account</button>
+    <p class="hint" *ngIf="updatedAt">Last updated: {{ updatedAt | date: 'medium' }}</p>
+  </form>
+</div>

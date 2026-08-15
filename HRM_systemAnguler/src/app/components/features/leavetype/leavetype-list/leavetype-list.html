@@ -1,0 +1,50 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Leave Type List</h2>
+    <button routerLink="/leavetype/add">+ Add Leave Type</button>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Leave Type</th>
+        <th>Max Days</th>
+        <th>Carry Forward</th>
+        <th>Paid</th>
+        <th>Description</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of leaveTypes">
+        <td>{{ item.id }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.maxDaysPerYear }}</td>
+        <td>{{ (item.maxCarryForwardDays ?? 0) > 0 ? item.maxCarryForwardDays + ' days' : 'Lapses' }}</td>
+        <td>
+          <span
+            [ngClass]="{
+              paid: item.paid,
+              unpaid: !item.paid,
+            }"
+          >
+            {{ item.paid ? 'Paid' : 'Unpaid' }}
+          </span>
+        </td>
+        <td>{{ item.description }}</td>
+        <td>
+          <button class="edit" (click)="editLeaveType(item.id!)">Edit</button>
+          <button class="delete" (click)="deleteLeaveType(item.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal-outlet (closed)="loadLeaveTypes()"></app-modal-outlet>

@@ -1,0 +1,32 @@
+﻿<div class="division-container">
+  <div class="header">
+    <h2>Division List</h2>
+    <button routerLink="/division/add">Add Division</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Division Name</th>
+        <th>Division Name BN</th>
+        <th>Country</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let division of divisions; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ division.name }}</td>
+        <td>{{ division.nameBN }}</td>
+        <td>{{ division.countryName }}</td>
+        <td>
+          <button class="edit-btn" (click)="edit(division.id!)">Edit</button>
+          <button class="delete-btn" (click)="delete(division.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="divisions.length === 0">No Division Found</div>
+</div>
+
+<app-modal-outlet (closed)="loadDivisions()"></app-modal-outlet>

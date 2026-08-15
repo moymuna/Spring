@@ -1,0 +1,10 @@
+<div class="container">
+  <h2>Edit Application Status</h2>
+  <label> Status </label>
+  <select [(ngModel)]="status">
+    <option *ngFor="let s of statuses" [value]="s">
+      {{ s }}
+    </option>
+  </select>
+  <button (click)="update()">Update</button>
+</div>

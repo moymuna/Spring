@@ -1,0 +1,79 @@
+<div class="container">
+  <h2>Hire Applicant</h2>
+  <div class="applicant-summary" *ngIf="application">
+    <div><strong>Applicant:</strong> {{ application.applicantName }}</div>
+    <div><strong>Applied for:</strong> {{ application.jobTitle }}</div>
+    <div><strong>Current status:</strong> {{ application.status }}</div>
+    <p class="hint">
+      Their name, email and address carry over from the application. Fill in the employment terms
+      below.
+    </p>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="hireForm" (ngSubmit)="hire()">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Joining Date</label>
+        <input type="date" formControlName="joiningDate" />
+        <small class="validation" *ngIf="f['joiningDate'].touched && f['joiningDate'].invalid">
+          Joining date is required
+        </small>
+      </div>
+      <div class="form-group">
+        <label>Employment Type</label>
+        <select formControlName="employmentType">
+          <option *ngFor="let t of employmentTypes" [value]="t">{{ t }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Department</label>
+        <select formControlName="departmentId">
+          <option value="">Select Department</option>
+          <option *ngFor="let d of departments" [value]="d.id">{{ d.departmentName }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Designation</label>
+        <select formControlName="designationId">
+          <option value="">Select Designation</option>
+          <option *ngFor="let d of designations" [value]="d.id">{{ d.title }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Office</label>
+        <select formControlName="officeId">
+          <option value="">Select Office</option>
+          <option *ngFor="let o of offices" [value]="o.id">{{ o.officeName }}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Manager</label>
+        <select formControlName="managerId">
+          <option value="">Select Manager</option>
+          <option *ngFor="let m of managers" [value]="m.id">
+            {{ m.employeeCode }} - {{ m.fullName }}
+          </option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Employee Code</label>
+        <input type="text" formControlName="employeeCode" placeholder="Leave blank to auto-generate" />
+      </div>
+      <div class="form-group">
+        <label>Contract No</label>
+        <input type="text" formControlName="contractNo" placeholder="Enter Contract No" />
+      </div>
+    </div>
+    <div class="button-group">
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Hiring...' : 'Hire as Employee' }}
+      </button>
+      <a routerLink="/application" class="cancel-btn">Cancel</a>
+    </div>
+  </form>
+</div>

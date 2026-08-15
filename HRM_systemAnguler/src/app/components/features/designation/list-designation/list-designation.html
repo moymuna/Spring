@@ -1,0 +1,57 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Designation List</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Search by title or level..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+        <button (click)="search()">Search</button>
+      </div>
+      <button class="btn-add" (click)="add()">+ Add Designation</button>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Title</th>
+        <th>Level</th>
+        <th>Department</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of designations; let i = index">
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td>
+          {{ d.title }}
+        </td>
+        <td>
+          {{ d.level }}
+        </td>
+        <td>
+          {{ d.departmentName }}
+        </td>
+        <td>
+          <button class="btn-edit" (click)="edit(d.id!)">Edit</button>
+          <button class="btn-delete" (click)="delete(d.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(page - 1)" [disabled]="page === 0">Prev</button>
+    <button *ngFor="let p of getPages()" (click)="changePage(p)" [class.active]="page === p">
+      {{ p + 1 }}
+    </button>
+    <button (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1">Next</button>
+  </div>
+</div>
+
+<app-modal-outlet (closed)="loadDesignations()"></app-modal-outlet>

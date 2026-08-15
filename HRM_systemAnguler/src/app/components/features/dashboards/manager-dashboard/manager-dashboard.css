@@ -1,0 +1,28 @@
+.dashboard-container {
+  padding: 24px;
+  background: var(--color-bg-subtle);
+  min-height: calc(100vh - 70px);
+}
+.welcome-banner h1 {
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--color-navy);
+}
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 24px;
+}
+.grid-card {
+  background: var(--color-surface);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+.grid-card h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--color-bg-subtle);
+}

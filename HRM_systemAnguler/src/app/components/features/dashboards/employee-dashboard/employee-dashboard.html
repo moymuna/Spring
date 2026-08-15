@@ -1,0 +1,195 @@
+<div class="dash">
+  <div class="dash-head">
+    <div>
+      <h2>Welcome back, {{ user?.fullName || 'there' }}! 👋</h2>
+      <p>Here's your work summary for today.</p>
+    </div>
+    <div class="year-picker">
+      <i class="bi bi-calendar3"></i>
+      <span>{{ today | date: 'MMMM d, y, EEEE' }}</span>
+    </div>
+  </div>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <span class="stat-icon blue"><i class="bi bi-calendar-check"></i></span>
+      <span class="stat-label">Attendance Today</span>
+      <strong class="stat-value status-text" [ngClass]="clockedIn || completedToday ? 'ok' : 'off'">
+        {{ clockedIn ? 'Clocked In' : completedToday ? 'Present' : 'Not Marked' }}
+      </strong>
+      <small class="stat-sub" *ngIf="clockInTime">Check in: {{ clockInTime | date: 'shortTime' }}</small>
+      <small class="stat-sub" *ngIf="completedToday && checkOutTime">
+        Check out: {{ checkOutTime | date: 'shortTime' }}
+      </small>
+      <button
+        class="clock-btn"
+        [ngClass]="clockedIn ? 'out' : 'in'"
+        [disabled]="completedToday"
+        (click)="toggleClock()"
+      >
+        {{ completedToday ? 'Done for today' : clockedIn ? 'Clock Out' : 'Clock In' }}
+      </button>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon green"><i class="bi bi-calendar-range"></i></span>
+      <span class="stat-label">Leave Balance</span>
+      <strong class="stat-value">{{ totalRemainingLeave }} Days</strong>
+      <small class="stat-sub">Available</small>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon amber"><i class="bi bi-hourglass-split"></i></span>
+      <span class="stat-label">Pending Requests</span>
+      <strong class="stat-value">{{ pendingRequests }}</strong>
+      <a class="stat-link" routerLink="/leave">View my requests</a>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon purple"><i class="bi bi-wallet2"></i></span>
+      <span class="stat-label">Next Payroll</span>
+      <strong class="stat-value small">{{ nextPayrollDate | date: 'MMM d, y' }}</strong>
+      <a class="stat-link" routerLink="/payslip">View payslip</a>
+    </div>
+
+    <div class="stat">
+      <span class="stat-icon red"><i class="bi bi-balloon"></i></span>
+      <span class="stat-label">Upcoming Birthdays</span>
+      <strong class="stat-value">{{ birthdays.length }}</strong>
+      <small class="stat-sub" *ngIf="birthdays.length">
+        {{ birthdays[0].employeeName }} in {{ birthdays[0].daysUntil }}d
+      </small>
+    </div>
+  </div>
+
+  <div class="row-3">
+    <!-- Attendance calendar -->
+    <section class="panel">
+      <div class="panel-head">
+        <h3>My Attendance</h3>
+        <span class="muted">{{ calendarLabel }}</span>
+      </div>
+      <div class="cal">
+        <div class="cal-dow" *ngFor="let d of weekDays">{{ d }}</div>
+        <div
+          class="cal-day"
+          *ngFor="let c of calendar"
+          [class.blank]="c.day === null"
+          [class.today]="c.today"
+        >
+          <span *ngIf="c.day">{{ c.day }}</span>
+          <i class="dot" *ngIf="c.status" [ngClass]="statusClass(c.status)"></i>
+        </div>
+      </div>
+      <div class="cal-legend">
+        <span><i class="dot present"></i>Present</span>
+        <span><i class="dot late"></i>Half Day</span>
+        <span><i class="dot absent"></i>Absent</span>
+        <span><i class="dot holiday"></i>Leave / Holiday</span>
+      </div>
+    </section>
+
+    <!-- Leave balance bars -->
+    <section class="panel">
+      <div class="panel-head">
+        <h3>Leave Balance</h3>
+        <a class="muted-link" routerLink="/leavebalance">View all</a>
+      </div>
+      <div class="bars">
+        <div class="bar-row" *ngFor="let b of leaveBalances">
+          <div class="bar-head">
+            <span>{{ b.leaveTypeName }}</span>
+            <strong>{{ b.remaining }} / {{ b.totalEntitled }} Days</strong>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" [style.width.%]="usedPercent(b)"></div>
+          </div>
+        </div>
+        <p class="empty" *ngIf="leaveBalances.length === 0">No leave balance set up yet.</p>
+      </div>
+      <a class="panel-foot" routerLink="/leave/add">Apply for Leave</a>
+    </section>
+
+    <!-- Upcoming holidays -->
+    <section class="panel">
+      <div class="panel-head">
+        <h3>Upcoming Holidays</h3>
+        <a class="muted-link" routerLink="/holiday">View all</a>
+      </div>
+      <ul class="holiday-list">
+        <li *ngFor="let h of upcomingHolidays">
+          <span class="holiday-icon"><i class="bi bi-calendar-event"></i></span>
+          <div>
+            <strong>{{ h.name }}</strong>
+            <small>{{ h.date | date: 'mediumDate' }}</small>
+          </div>
+          <span class="days-left">
+            <b>{{ daysUntil(h.date) }}</b>
+            <small>Days left</small>
+          </span>
+        </li>
+        <li class="empty" *ngIf="upcomingHolidays.length === 0">No upcoming holidays.</li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="row-2">
+    <!-- Announcements -->
+    <section class="panel">
+      <div class="panel-head">
+        <h3>Recent Announcements</h3>
+        <a class="muted-link" routerLink="/notice">View all</a>
+      </div>
+      <ul class="notice-list">
+        <li *ngFor="let n of notices">
+          <div>
+            <strong>{{ n.title }}</strong>
+            <p>{{ n.description }}</p>
+          </div>
+          <small>{{ n.publishDate | date: 'mediumDate' }}</small>
+        </li>
+        <li class="empty" *ngIf="notices.length === 0">No announcements.</li>
+      </ul>
+    </section>
+
+    <!-- Quick links -->
+    <section class="panel">
+      <div class="panel-head"><h3>My Utilities</h3></div>
+      <div class="quick-grid">
+        <a routerLink="/attendance/details" class="quick green">
+          <i class="bi bi-calendar3"></i><span>Attendance</span>
+        </a>
+        <a routerLink="/leave/add" class="quick amber">
+          <i class="bi bi-calendar-plus"></i><span>Apply Leave</span>
+        </a>
+        <a routerLink="/advance/add" class="quick red">
+          <i class="bi bi-wallet2"></i><span>Advance</span>
+        </a>
+        <a routerLink="/my-salary" class="quick blue">
+          <i class="bi bi-receipt"></i><span>My Salary</span>
+        </a>
+        <a routerLink="/project" class="quick purple">
+          <i class="bi bi-kanban"></i><span>Projects</span>
+        </a>
+        <a routerLink="/documents" class="quick cyan">
+          <i class="bi bi-folder2-open"></i><span>Documents</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <div class="panel" *ngIf="monthlySummary">
+    <div class="panel-head"><h3>This Month</h3></div>
+    <div class="chips">
+      <span class="chip green">Present: {{ monthlySummary.presentDays }}</span>
+      <span class="chip red">Absent: {{ monthlySummary.absentDays }}</span>
+      <span class="chip amber">Half Day: {{ monthlySummary.halfDays }}</span>
+      <span class="chip purple">On Leave: {{ monthlySummary.onLeaveDays }}</span>
+      <span class="chip gray">Holiday: {{ monthlySummary.holidayDays }}</span>
+      <span class="chip gray">Week Off: {{ monthlySummary.weekOffDays }}</span>
+      <span class="chip blue">
+        Worked Hours: {{ monthlySummary.totalWorkedHours | number: '1.1-1' }}
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="container">
+  <h2>Add Payslip</h2>
+  <p class="hint">
+    Pick an already-generated Payroll record — every field below fills in automatically from it.
+  </p>
+  <div class="row">
+    <label>Payroll Record</label>
+    <select
+      [(ngModel)]="selectedPayrollId"
+      [ngModelOptions]="{ standalone: true }"
+      (change)="onPayrollSelected()"
+    >
+      <option value="">Select Payroll Record</option>
+      <option *ngFor="let p of payrolls" [value]="p.id">
+        {{ p.employeeName }} — {{ monthName(p.month) }} {{ p.year }} (Net: {{ p.netSalary }})
+      </option>
+    </select>
+  </div>
+  <form [formGroup]="payslipForm" (ngSubmit)="save()">
+    <div class="row">
+      <label>Month</label>
+      <input type="number" formControlName="month" placeholder="Enter Month" />
+    </div>
+    <div class="row">
+      <label>Year</label>
+      <input type="number" formControlName="year" placeholder="Enter Year" />
+    </div>
+    <div class="row">
+      <label>Gross Salary</label>
+      <input type="number" formControlName="grossSalary" placeholder="Enter Gross Salary" />
+    </div>
+    <div class="row">
+      <label>Total Deduction</label>
+      <input type="number" formControlName="totalDeductions" placeholder="Enter Total Deduction" />
+    </div>
+    <div class="row">
+      <label>Net Salary</label>
+      <input type="number" formControlName="netSalary" placeholder="Enter Net Salary" />
+    </div>
+    <div class="row">
+      <label>Paid Days</label>
+      <input type="number" formControlName="paidDays" placeholder="Enter Paid Days" />
+    </div>
+    <div class="row">
+      <label>LOP Days</label>
+      <input type="number" formControlName="lopDays" placeholder="Enter LOP Days" />
+    </div>
+    <div class="row">
+      <label>Status</label>
+      <select formControlName="status">
+        <option *ngFor="let s of statuses" [value]="s">
+          {{ s }}
+        </option>
+      </select>
+    </div>
+    <div class="row">
+      <label>Generated At</label>
+      <input type="datetime-local" formControlName="generatedAt" placeholder="Enter Generated At" />
+    </div>
+    <div class="row">
+      <label>Paid At</label>
+      <input type="datetime-local" formControlName="paidAt" placeholder="Enter Paid At" />
+    </div>
+    <button type="submit">Save</button>
+  </form>
+</div>

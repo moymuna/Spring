@@ -1,0 +1,37 @@
+<div class="container" *ngIf="interview">
+  <h2>Edit Interview</h2>
+  <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+  <form (ngSubmit)="update()">
+    <label>Application</label>
+    <select [(ngModel)]="interview.applicationId" name="applicationId" required>
+      <option value="0">Select Application</option>
+      <option *ngFor="let a of applications" [value]="a.id">
+        {{ a.applicantName }} - {{ a.jobTitle }}
+      </option>
+    </select>
+    <label>Interviewer</label>
+    <select [(ngModel)]="interview.interviewerId" name="interviewerId" required>
+      <option value="0">Select Interviewer</option>
+      <option *ngFor="let u of interviewers" [value]="u.id">{{ u.fullName }} ({{ u.role }})</option>
+    </select>
+    <label>Interview Date</label>
+    <input
+      type="date"
+      [(ngModel)]="interview.interviewDate"
+      name="interviewDate"
+      required
+      placeholder="Enter Interview Date"
+    />
+    <label>Feedback</label>
+    <textarea
+      [(ngModel)]="interview.feedback"
+      name="feedback"
+      placeholder="Enter Feedback"
+    ></textarea>
+    <label>Result</label>
+    <select [(ngModel)]="interview.result" name="result">
+      <option *ngFor="let r of results" [value]="r">{{ r }}</option>
+    </select>
+    <button type="submit">Update Interview</button>
+  </form>
+</div>

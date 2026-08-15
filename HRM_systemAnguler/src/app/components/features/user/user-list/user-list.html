@@ -1,0 +1,51 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>User List</h2>
+    <div class="header-actions">
+      <button class="add-btn" (click)="addUser()">+ Add User</button>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+        <th>Lock</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{ user.id }}</td>
+        <td>{{ user.fullName }}</td>
+        <td>{{ user.email }}</td>
+        <td>{{ user.role }}</td>
+        <td>
+          <span class="status-badge" [class.active]="user.enabled" [class.inactive]="!user.enabled">
+            {{ user.enabled ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td>
+          <span
+            class="status-badge"
+            [class.locked]="user.accountLocked"
+            [class.active]="!user.accountLocked"
+          >
+            {{ user.accountLocked ? 'Locked' : 'Unlocked' }}
+          </span>
+        </td>
+        <td>
+          <button class="view-btn" (click)="details(user.id!)">View</button>
+          <button class="edit-btn" (click)="editUser(user.id!)">Edit</button>
+          <button class="delete-btn" (click)="deleteUser(user.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="users.length === 0">No users found.</div>
+</div>
+
+<app-modal-outlet (closed)="loadUsers()"></app-modal-outlet>

@@ -1,0 +1,82 @@
+﻿<div class="jobpost-container">
+  <div class="header">
+    <h2>Job Post List</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Search by title or location..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+        <button (click)="search()">Search</button>
+      </div>
+      <button routerLink="/jobpost/add" class="add-btn">+ Add Job Post</button>
+    </div>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Salary</th>
+        <th>Status</th>
+        <th>Department</th>
+        <th>Posted Date</th>
+        <th>Deadline</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of jobPosts">
+        <td>
+          {{ job.id }}
+        </td>
+        <td>
+          {{ job.title }}
+        </td>
+        <td>
+          {{ job.location }}
+        </td>
+        <td>
+          {{ job.minSalary }} -
+          {{ job.maxSalary }}
+        </td>
+        <td>
+          <span class="status">
+            {{ job.status }}
+          </span>
+        </td>
+        <td>
+          {{ job.departmentName }}
+        </td>
+        <td>
+          {{ job.postedDate | date: 'dd-MM-yyyy' }}
+        </td>
+        <td>
+          {{ job.deadline | date: 'dd-MM-yyyy' }}
+        </td>
+        <td>
+          <button class="edit-btn" (click)="edit(job.id!)">Edit</button>
+          <button class="delete-btn" (click)="delete(job.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(page - 1)" [disabled]="page === 0">Prev</button>
+    <button *ngFor="let p of getPages()" (click)="changePage(p)" [class.active]="page === p">
+      {{ p + 1 }}
+    </button>
+    <button (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1">Next</button>
+  </div>
+</div>
+
+<app-modal-outlet [wide]="true" (closed)="loadJobPosts()"></app-modal-outlet>

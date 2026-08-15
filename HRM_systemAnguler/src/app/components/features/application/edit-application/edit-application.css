@@ -1,0 +1,18 @@
+.container {
+  width: 400px;
+  margin: auto;
+  padding: 30px;
+  background: var(--color-surface);
+  box-shadow: 0 0 10px var(--color-border);
+}
+select,
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+}
+button {
+  background: green;
+  color: var(--color-surface);
+  border: none;
+}

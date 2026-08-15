@@ -1,0 +1,122 @@
+<div class="dash">
+  <div class="dash-head">
+    <div>
+      <h2>Welcome back!</h2>
+      <p>Here's what's happening in your organization today.</p>
+    </div>
+    <div class="year-picker">
+      <i class="bi bi-calendar3"></i>
+      <select [(ngModel)]="year" (change)="onYearChange()">
+        <option *ngFor="let y of years" [value]="y">{{ y }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="error" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div class="stat-grid">
+    <div class="stat">
+      <span class="stat-icon blue"><i class="bi bi-people-fill"></i></span>
+      <span class="stat-label">Total Employees</span>
+      <strong class="stat-value">{{ data?.totalEmployees ?? 0 }}</strong>
+      <small class="stat-sub up" *ngIf="data?.newHiresThisMonth">
+        <i class="bi bi-arrow-up"></i> {{ data?.newHiresThisMonth }} this month
+      </small>
+    </div>
+    <div class="stat">
+      <span class="stat-icon green"><i class="bi bi-building"></i></span>
+      <span class="stat-label">Departments</span>
+      <strong class="stat-value">{{ data?.departments ?? 0 }}</strong>
+    </div>
+    <div class="stat">
+      <span class="stat-icon purple"><i class="bi bi-person-check-fill"></i></span>
+      <span class="stat-label">Active Employees</span>
+      <strong class="stat-value">{{ data?.activeEmployees ?? 0 }}</strong>
+      <small class="stat-sub">{{ activePercent }}% of total</small>
+    </div>
+    <div class="stat">
+      <span class="stat-icon amber"><i class="bi bi-calendar-event"></i></span>
+      <span class="stat-label">On Leave Today</span>
+      <strong class="stat-value">{{ data?.onLeaveToday ?? 0 }}</strong>
+      <a class="stat-link" routerLink="/leave">View details</a>
+    </div>
+    <div class="stat">
+      <span class="stat-icon cyan"><i class="bi bi-person-plus-fill"></i></span>
+      <span class="stat-label">New Hires (This Month)</span>
+      <strong class="stat-value">{{ data?.newHiresThisMonth ?? 0 }}</strong>
+      <a class="stat-link" routerLink="/employee">View details</a>
+    </div>
+    <div class="stat">
+      <span class="stat-icon red"><i class="bi bi-hourglass-split"></i></span>
+      <span class="stat-label">Pending Approvals</span>
+      <strong class="stat-value">{{ pendingApprovals }}</strong>
+      <a class="stat-link" routerLink="/leave">View all</a>
+    </div>
+  </div>
+
+  <div class="row-2">
+    <section class="panel">
+      <div class="panel-head">
+        <h3>Employee Overview</h3>
+        <span class="muted">Headcount at each month end, {{ year }}</span>
+      </div>
+      <app-area-chart [points]="headcountTrend"></app-area-chart>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h3>Recent Activities</h3>
+      </div>
+      <ul class="activity">
+        <li *ngFor="let a of recentActivities.slice(0, 6)">
+          <span class="activity-icon" [ngClass]="a.type"><i class="bi" [ngClass]="a.icon"></i></span>
+          <div class="activity-body">
+            <p>{{ a.text }}</p>
+            <small>{{ a.time }}</small>
+          </div>
+        </li>
+        <li class="empty" *ngIf="recentActivities.length === 0">No recent activity.</li>
+      </ul>
+      <a class="panel-foot" routerLink="/audit-log">View all activities</a>
+    </section>
+  </div>
+
+  <div class="row-3">
+    <section class="panel">
+      <div class="panel-head"><h3>Employees by Department</h3></div>
+      <app-donut-chart [segments]="departmentSegments" centerLabel="Active"></app-donut-chart>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h3>Attendance Overview (Today)</h3></div>
+      <app-donut-chart [segments]="attendanceSegments" centerLabel="Marked"></app-donut-chart>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head"><h3>Quick Actions</h3></div>
+      <div class="quick-grid">
+        <a *ngFor="let q of quickActions" [routerLink]="q.route" class="quick" [ngClass]="q.tone">
+          <i class="bi" [ngClass]="q.icon"></i>
+          <span>{{ q.label }}</span>
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h3>Recent Notices</h3>
+      <a class="muted-link" routerLink="/notice">View all</a>
+    </div>
+    <ul class="notice-list">
+      <li *ngFor="let n of recentNotices">
+        <div>
+          <strong>{{ n.title }}</strong>
+          <p>{{ n.description }}</p>
+        </div>
+        <small>{{ n.publishDate | date: 'mediumDate' }}</small>
+      </li>
+      <li class="empty" *ngIf="recentNotices.length === 0">No notices published.</li>
+    </ul>
+  </section>
+</div>

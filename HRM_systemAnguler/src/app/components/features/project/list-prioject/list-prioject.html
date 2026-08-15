@@ -1,0 +1,58 @@
+﻿<div class="project-container">
+  <h2>Project List</h2>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <div class="top-section" *ngIf="!isEmployeeOnly">
+    <button routerLink="/project/add">+ Add Project</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Project Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Employees</th>
+        <th>Office</th>
+        <th *ngIf="!isEmployeeOnly">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let project of projects; let i = index">
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td>
+          {{ project.projectName }}
+        </td>
+        <td>
+          {{ project.description }}
+        </td>
+        <td>
+          {{ project.startDate | date: 'dd-MM-yyyy' }}
+        </td>
+        <td>
+          {{ project.endDate | date: 'dd-MM-yyyy' }}
+        </td>
+        <td>
+          <ul>
+            <li *ngFor="let emp of project.employeeName">
+              {{ emp }}
+            </li>
+          </ul>
+        </td>
+        <td>
+          {{ project.officeName }}
+        </td>
+        <td *ngIf="!isEmployeeOnly">
+          <button class="edit" (click)="editProject(project.id!)">Edit</button>
+          <button class="delete" (click)="deleteProject(project.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal-outlet (closed)="loadProjects()"></app-modal-outlet>

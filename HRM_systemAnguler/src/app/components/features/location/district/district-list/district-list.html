@@ -1,0 +1,44 @@
+﻿<div class="district-container">
+  <div class="header">
+    <h2>District List</h2>
+    <button routerLink="/district/add">Add District</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>District Name</th>
+        <th>Name (BN)</th>
+        <th>District Code</th>
+        <th>Division</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let district of districts; let i = index">
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td>
+          {{ district.districtsName }}
+        </td>
+        <td>
+          {{ district.nameBN }}
+        </td>
+        <td>
+          {{ district.districtCode }}
+        </td>
+        <td>
+          {{ district.divisionName }}
+        </td>
+        <td>
+          <button class="edit-btn" (click)="edit(district.id!)">Edit</button>
+          <button class="delete-btn" (click)="delete(district.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="districts.length === 0">No District Found</div>
+</div>
+
+<app-modal-outlet (closed)="loadDistricts()"></app-modal-outlet>

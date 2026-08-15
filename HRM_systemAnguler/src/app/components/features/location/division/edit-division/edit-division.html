@@ -1,0 +1,38 @@
+<div class="division-container">
+  <h2>Edit Division</h2>
+  <form (ngSubmit)="update()">
+    <div class="form-group">
+      <label>Division Name</label>
+      <input
+        type="text"
+        name="name"
+        [(ngModel)]="division.name"
+        placeholder="Enter Division Name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label>Division Name (BN)</label>
+      <input
+        type="text"
+        name="nameBN"
+        [(ngModel)]="division.nameBN"
+        placeholder="Enter Division Name (BN)"
+      />
+    </div>
+    <div class="form-group">
+      <label>Country Id</label>
+      <input
+        type="number"
+        name="countryId"
+        [(ngModel)]="division.countryId"
+        placeholder="Enter Country Id"
+        required
+      />
+    </div>
+    <div class="button-group">
+      <button type="submit">Update</button>
+      <button type="button" class="reset-btn" (click)="reset()">Reset</button>
+    </div>
+  </form>
+</div>

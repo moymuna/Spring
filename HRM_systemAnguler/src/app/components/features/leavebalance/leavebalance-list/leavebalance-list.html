@@ -1,0 +1,62 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Leave Balance List</h2>
+    <a *ngIf="!isEmployeeOnly" routerLink="/leavebalance/add" class="add-btn">
+      + Add Leave Balance
+    </a>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Employee</th>
+        <th>Leave Type</th>
+        <th>Year</th>
+        <th>Total Days</th>
+        <th>Used</th>
+        <th>Remaining</th>
+        <th *ngIf="!isEmployeeOnly">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of leaveBalances">
+        <td>
+          {{ item.id }}
+        </td>
+        <td>
+          {{ item.employeeName }}
+        </td>
+        <td>
+          {{ item.leaveTypeName }}
+        </td>
+        <td>
+          {{ item.year }}
+        </td>
+        <td>
+          {{ item.totalEntitled }}
+        </td>
+        <td>
+          {{ item.used }}
+        </td>
+        <td>
+          <span class="status-badge">
+            {{ item.remaining }}
+          </span>
+        </td>
+        <td *ngIf="!isEmployeeOnly">
+          <a [routerLink]="['/leavebalance/edit', item.id]" class="edit-btn"> Edit </a>
+          <button class="delete-btn" (click)="deleteLeaveBalance(item.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="leaveBalances.length === 0">No leave balance records found.</div>
+</div>
+
+<app-modal-outlet (closed)="loadLeaveBalances()"></app-modal-outlet>

@@ -1,0 +1,69 @@
+﻿<div class="salary-list-container">
+  <h2>Salary List</h2>
+  <div class="success-message" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error-message" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <div class="top-action">
+    <button class="add-btn" routerLink="/salary/add">Add Salary</button>
+  </div>
+  <div class="loading" *ngIf="loading">Loading salary data...</div>
+  <table *ngIf="!loading && salaries.length > 0">
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Employee</th>
+        <th>Grade</th>
+        <th>Basic Salary</th>
+        <th>Gross Monthly</th>
+        <th>Total Deduction</th>
+        <th>Effective From</th>
+        <th>Effective To</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let salary of salaries; let i = index">
+        <td>
+          {{ i + 1 }}
+        </td>
+        <td>
+          {{ salary.employeeName }}
+        </td>
+        <td>
+          {{ salary.gradeNumber ? 'Grade ' + salary.gradeNumber : '-' }}
+        </td>
+        <td>
+          {{ salary.basicSalary }}
+        </td>
+        <td>
+          {{ salary.grossMonthly }}
+        </td>
+        <td>
+          {{ salary.totalDeductions }}
+        </td>
+        <td>
+          {{ salary.effectiveFrom }}
+        </td>
+        <td>
+          {{ salary.effectiveTo || '-' }}
+        </td>
+        <td>
+          <span [class.active]="salary.active" [class.inactive]="!salary.active">
+            {{ salary.active ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td>
+          <button class="edit-btn" (click)="editSalary(salary.id!)">Edit</button>
+          <button class="delete-btn" (click)="deleteSalary(salary.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="no-data" *ngIf="!loading && salaries.length === 0">No Salary Record Found.</div>
+</div>
+
+<app-modal-outlet [wide]="true" (closed)="loadSalaries()"></app-modal-outlet>

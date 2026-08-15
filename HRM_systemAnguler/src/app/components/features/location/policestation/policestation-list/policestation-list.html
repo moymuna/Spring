@@ -1,0 +1,38 @@
+﻿<div class="station-container">
+  <div class="header">
+    <h2>Police Station List</h2>
+    <button routerLink="/policestation/add">Add Police Station</button>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>SL</th>
+        <th>Police Station</th>
+        <th>Name (BN)</th>
+        <th>Postal Code</th>
+        <th>District</th>
+        <th>Division</th>
+        <th>Country</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let station of stations; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ station.name }}</td>
+        <td>{{ station.nameBn }}</td>
+        <td>{{ station.postalCode }}</td>
+        <td>{{ station.districtName }}</td>
+        <td>{{ station.divisionName }}</td>
+        <td>{{ station.countryName }}</td>
+        <td>
+          <button class="edit-btn" (click)="edit(station.id!)">Edit</button>
+          <button class="delete-btn" (click)="delete(station.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="stations.length === 0">No Police Station Found</div>
+</div>
+
+<app-modal-outlet (closed)="loadPoliceStations()"></app-modal-outlet>

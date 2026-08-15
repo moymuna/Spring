@@ -1,0 +1,31 @@
+<div class="notice-container">
+  <h2>Add Notice</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="noticeForm" (ngSubmit)="saveNotice()">
+    <div class="form-group">
+      <label> Notice Title </label>
+      <input type="text" formControlName="title" placeholder="Enter Notice Title" />
+    </div>
+    <div class="form-group">
+      <label> Description </label>
+      <textarea rows="6" formControlName="description" placeholder="Enter Notice Description">
+      </textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label> Publish Date </label>
+        <input type="date" formControlName="publishDate" placeholder="Enter Publish Date" />
+      </div>
+      <div class="form-group">
+        <label> Office ID </label>
+        <input type="number" formControlName="officeId" placeholder="Enter Office ID" />
+      </div>
+    </div>
+    <button type="submit" class="save-btn">Save Notice</button>
+  </form>
+</div>

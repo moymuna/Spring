@@ -1,0 +1,54 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Performance Review List</h2>
+    <a routerLink="/performancereview/add" class="add-btn"> + Add Performance Review </a>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Employee</th>
+        <th>Reviewer</th>
+        <th>Rating</th>
+        <th>Status</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let review of reviews">
+        <td>
+          {{ review.id }}
+        </td>
+        <td>
+          {{ review.employeeName }}
+        </td>
+        <td>
+          {{ review.reviewerName }}
+        </td>
+        <td>
+          {{ review.rating }}
+        </td>
+        <td>
+          {{ review.status }}
+        </td>
+        <td>
+          {{ review.reviewPeriodStart }}
+        </td>
+        <td>
+          {{ review.reviewPeriodEnd }}
+        </td>
+        <td>
+          <a [routerLink]="['/performancereview/edit', review.id]" class="edit-btn"> Edit </a>
+          <button (click)="deleteReview(review.id!)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal-outlet (closed)="loadReviews()"></app-modal-outlet>

@@ -1,0 +1,163 @@
+INSERT INTO `hrm`.`divisions` (`id`, `name`, `namebn`, `country_id`) VALUES
+(1, 'Dhaka', 'ঢাকা', 1),
+(2, 'Chattogram', 'চট্টগ্রাম', 1),
+(3, 'Rajshahi', 'রাজশাহী', 1),
+(4, 'Khulna', 'খুলনা', 1),
+(5, 'Barishal', 'বরিশাল', 1),
+(6, 'Sylhet', 'সিলেট', 1),
+(7, 'Rangpur', 'রংপুর', 1),
+(8, 'Mymensingh', 'ময়মনসিংহ', 1);
+
+
+
+INSERT INTO `hrm`.`districts` (`id`, `district_code`, `districts_name`, `namebn`, `division_id`) VALUES
+-- Dhaka Division (division_id = 1)
+(1, 'DHK', 'Dhaka', 'ঢাকা', 1),
+(2, 'GPS', 'Gazipur', 'গাজীপুর', 1),
+(3, 'NRY', 'Narayanganj', 'নারায়ণগঞ্জ', 1),
+(4, 'MNS', 'Manikganj', 'মানিকগঞ্জ', 1),
+(5, 'MSH', 'Munshiganj', 'মুন্সীগঞ্জ', 1),
+(6, 'NRS', 'Narsingdi', 'নরসিংদী', 1),
+(7, 'TNG', 'Tangail', 'টাঙ্গাইল', 1),
+(8, 'KSG', 'Kishoreganj', 'কিশোরগঞ্জ', 1),
+(9, 'FRP', 'Faridpur', 'ফরিদপুর', 1),
+(10, 'GPG', 'Gopalganj', 'গোপালগঞ্জ', 1),
+(11, 'MDR', 'Madaripur', 'মাদারীপুর', 1),
+(12, 'RJB', 'Rajbari', 'রাজবাড়ী', 1),
+(13, 'SHT', 'Shariatpur', 'শরীয়তপুর', 1),
+
+-- Chattogram Division (division_id = 2)
+(14, 'CTG', 'Chattogram', 'চট্টগ্রাম', 2),
+(15, 'COX', 'Cox''s Bazar', 'কক্সবাজার', 2),
+(16, 'CML', 'Cumilla', 'কুমিল্লা', 2),
+(17, 'BBR', 'Brahmanbaria', 'ব্রাহ্মণবাড়িয়া', 2),
+(18, 'CHD', 'Chandpur', 'চাঁদপুর', 2),
+(19, 'LXM', 'Lakshmipur', 'লক্ষ্মীপুর', 2),
+(20, 'NOA', 'Noakhali', 'নোয়াখালী', 2),
+(21, 'FNI', 'Feni', 'ফেনী', 2),
+(22, 'KGR', 'Khagrachhari', 'খাগড়াছড়ি', 2),
+(23, 'RNG', 'Rangamati', 'রাঙ্গামাটি', 2),
+(24, 'BND', 'Bandarban', 'বান্দরবান', 2),
+
+-- Rajshahi Division (division_id = 3)
+(25, 'RAJ', 'Rajshahi', 'রাজশাহী', 3),
+(26, 'BOG', 'Bogura', 'বগুড়া', 3),
+(27, 'NAT', 'Natore', 'নাটোর', 3),
+(28, 'NAW', 'Naogaon', 'নওগাঁ', 3),
+(29, 'CHP', 'Chapai Nawabganj', 'চাঁপাইনবাবগঞ্জ', 3),
+(30, 'PAB', 'Pabna', 'পাবনা', 3),
+(31, 'SIR', 'Sirajganj', 'সিরাজগঞ্জ', 3),
+(32, 'JOY', 'Joypurhat', 'জয়পুরহাট', 3),
+
+-- Khulna Division (division_id = 4)
+(33, 'KHL', 'Khulna', 'খুলনা', 4),
+(34, 'BGR', 'Bagerhat', 'বাগেরহাট', 4),
+(35, 'SAT', 'Satkhira', 'সাতক্ষীরা', 4),
+(36, 'JSR', 'Jashore', 'যশোর', 4),
+(37, 'JND', 'Jhenaidah', 'ঝিনাইদহ', 4),
+(38, 'MAG', 'Magura', 'মাগুরা', 4),
+(39, 'NRL', 'Narail', 'নড়াইল', 4),
+(40, 'KSD', 'Kushtia', 'কুষ্টিয়া', 4),
+(41, 'CHU', 'Chuadanga', 'চুয়াডাঙ্গা', 4),
+(42, 'MHR', 'Meherpur', 'মেহেরপুর', 4),
+
+-- Barishal Division (division_id = 5)
+(43, 'BAR', 'Barishal', 'বরিশাল', 5),
+(44, 'BHL', 'Bhola', 'ভোলা', 5),
+(45, 'JHL', 'Jhalokathi', 'ঝালকাঠি', 5),
+(46, 'PTK', 'Patuakhali', 'পটুয়াখালী', 5),
+(47, 'PKG', 'Pirojpur', 'পিরোজপুর', 5),
+(48, 'BRG', 'Barguna', 'বরগুনা', 5),
+
+-- Sylhet Division (division_id = 6)
+(49, 'SYL', 'Sylhet', 'সিলেট', 6),
+(50, 'MLV', 'Moulvibazar', 'মৌলভীবাজার', 6),
+(51, 'HBG', 'Habiganj', 'হবিগঞ্জ', 6),
+(52, 'SUN', 'Sunamganj', 'সুনামগঞ্জ', 6),
+
+-- Rangpur Division (division_id = 7)
+(53, 'RNP', 'Rangpur', 'রংপুর', 7),
+(54, 'DIN', 'Dinajpur', 'দিনাজপুর', 7),
+(55, 'THK', 'Thakurgaon', 'ঠাকুরগাঁও', 7),
+(56, 'PNC', 'Panchagarh', 'পঞ্চগড়', 7),
+(57, 'NLP', 'Nilphamari', 'নীলফামারী', 7),
+(58, 'LMN', 'Lalmonirhat', 'লালমনিরহাট', 7),
+(59, 'KRG', 'Kurigram', 'কুড়িগ্রাম', 7),
+(60, 'GDB', 'Gaibandha', 'গাইবান্ধা', 7),
+
+-- Mymensingh Division (division_id = 8)
+(61, 'MYM', 'Mymensingh', 'ময়মনসিংহ', 8),
+(62, 'JML', 'Jamalpur', 'জামালপুর', 8),
+(63, 'NET', 'Netrokona', 'নেত্রকোনা', 8),
+(64, 'SHR', 'Sherpur', 'শেরপুর', 8);
+
+
+
+
+INSERT INTO `hrm`.`policestations`
+(`id`, `name`, `name_bn`, `postal_code`, `district_id`)
+VALUES
+-- Dhaka (district_id = 1)
+(1, 'Dhanmondi', 'ধানমন্ডি', '1209', 1),
+(2, 'Mirpur', 'মিরপুর', '1216', 1),
+(3, 'Mohammadpur', 'মোহাম্মদপুর', '1207', 1),
+
+-- Gazipur (district_id = 2)
+(4, 'Gazipur Sadar', 'গাজীপুর সদর', '1700', 2),
+(5, 'Tongi', 'টঙ্গী', '1710', 2),
+
+-- Narayanganj (district_id = 3)
+(6, 'Narayanganj Sadar', 'নারায়ণগঞ্জ সদর', '1400', 3),
+(7, 'Fatullah', 'ফতুল্লা', '1420', 3),
+
+-- Manikganj (district_id = 4)
+(8, 'Manikganj Sadar', 'মানিকগঞ্জ সদর', '1800', 4),
+
+-- Munshiganj (district_id = 5)
+(9, 'Munshiganj Sadar', 'মুন্সীগঞ্জ সদর', '1500', 5),
+
+-- Narsingdi (district_id = 6)
+(10, 'Narsingdi Sadar', 'নরসিংদী সদর', '1600', 6),
+
+-- Tangail (district_id = 7)
+(11, 'Tangail Sadar', 'টাঙ্গাইল সদর', '1900', 7),
+
+-- Kishoreganj (district_id = 8)
+(12, 'Kishoreganj Sadar', 'কিশোরগঞ্জ সদর', '2300', 8),
+
+-- Faridpur (district_id = 9)
+(13, 'Faridpur Sadar', 'ফরিদপুর সদর', '7800', 9),
+
+-- Gopalganj (district_id = 10)
+(14, 'Gopalganj Sadar', 'গোপালগঞ্জ সদর', '8100', 10),
+
+-- Madaripur (district_id = 11)
+(15, 'Madaripur Sadar', 'মাদারীপুর সদর', '7900', 11),
+
+-- Rajbari (district_id = 12)
+(16, 'Rajbari Sadar', 'রাজবাড়ী সদর', '7700', 12),
+
+-- Shariatpur (district_id = 13)
+(17, 'Shariatpur Sadar', 'শরীয়তপুর সদর', '8000', 13),
+
+-- Chattogram (district_id = 14)
+(18, 'Kotwali', 'কোতোয়ালি', '4000', 14),
+(19, 'Pahartali', 'পাহাড়তলী', '4202', 14),
+
+-- Cox''s Bazar (district_id = 15)
+(20, 'Cox''s Bazar Sadar', 'কক্সবাজার সদর', '4700', 15),
+
+-- Cumilla (district_id = 16)
+(21, 'Cumilla Sadar', 'কুমিল্লা সদর', '3500', 16),
+
+-- Brahmanbaria (district_id = 17)
+(22, 'Brahmanbaria Sadar', 'ব্রাহ্মণবাড়িয়া সদর', '3400', 17),
+
+-- Chandpur (district_id = 18)
+(23, 'Chandpur Sadar', 'চাঁদপুর সদর', '3600', 18),
+
+-- Lakshmipur (district_id = 19)
+(24, 'Lakshmipur Sadar', 'লক্ষ্মীপুর সদর', '3700', 19),
+
+-- Noakhali (district_id = 20)
+(25, 'Noakhali Sadar', 'নোয়াখালী সদর', '3800', 20);

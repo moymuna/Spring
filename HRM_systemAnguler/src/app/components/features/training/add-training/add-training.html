@@ -1,0 +1,40 @@
+<div class="training-container">
+  <h2>Add Training</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="trainingForm" (ngSubmit)="saveTraining()">
+    <div class="form-group">
+      <label> Training Title </label>
+      <input type="text" formControlName="trainingTitle" placeholder="Enter Training Title" />
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label> Start Date </label>
+        <input type="date" formControlName="startDate" placeholder="Enter Start Date" />
+      </div>
+      <div class="form-group">
+        <label> End Date </label>
+        <input type="date" formControlName="endDate" placeholder="Enter End Date" />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label> Employee ID (optional — leave blank to let employees apply) </label>
+        <input
+          type="number"
+          formControlName="employeeId"
+          placeholder="Enter Employee ID (optional)"
+        />
+      </div>
+      <div class="form-group">
+        <label> Department ID </label>
+        <input type="number" formControlName="departmentId" placeholder="Enter Department ID" />
+      </div>
+    </div>
+    <button type="submit" class="save-btn">Save Training</button>
+  </form>
+</div>

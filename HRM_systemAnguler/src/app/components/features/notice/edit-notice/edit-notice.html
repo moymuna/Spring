@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>Edit Notice</h2>
+  <form [formGroup]="noticeForm" (ngSubmit)="updateNotice()">
+    <label> Title </label>
+    <input type="text" formControlName="title" placeholder="Enter Title" />
+    <label> Description </label>
+    <textarea formControlName="description" placeholder="Enter Description"> </textarea>
+    <label> Publish Date </label>
+    <input type="date" formControlName="publishDate" placeholder="Enter Publish Date" />
+    <label> Office ID </label>
+    <input type="number" formControlName="officeId" placeholder="Enter Office ID" />
+    <button>Update Notice</button>
+  </form>
+</div>

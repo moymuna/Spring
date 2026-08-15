@@ -1,0 +1,58 @@
+﻿<div class="container">
+  <div class="header">
+    <div>
+      <h2>Salary Grade (Pay Scale)</h2>
+      <p class="subtitle">Grade 1 is the highest step and grade 15 the lowest.</p>
+    </div>
+    <a routerLink="/salarygrade/add" class="add-btn" *ngIf="isAdmin"> + Add Grade </a>
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Grade</th>
+        <th>Title</th>
+        <th>Basic</th>
+        <th>HRA</th>
+        <th>Conveyance</th>
+        <th>Medical</th>
+        <th>Special</th>
+        <th>Gross</th>
+        <th>Deductions</th>
+        <th>Net</th>
+        <th>Status</th>
+        <th *ngIf="isAdmin">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let grade of grades">
+        <td>{{ grade.gradeNumber }}</td>
+        <td>{{ grade.title }}</td>
+        <td>{{ grade.basicSalary | number: '1.2-2' }}</td>
+        <td>{{ grade.hra | number: '1.2-2' }}</td>
+        <td>{{ grade.conveyanceAllowance | number: '1.2-2' }}</td>
+        <td>{{ grade.medicalAllowance | number: '1.2-2' }}</td>
+        <td>{{ grade.specialAllowance | number: '1.2-2' }}</td>
+        <td>{{ grade.grossMonthly | number: '1.2-2' }}</td>
+        <td>{{ grade.totalDeductions | number: '1.2-2' }}</td>
+        <td>
+          <strong>{{ grade.netMonthly | number: '1.2-2' }}</strong>
+        </td>
+        <td>
+          <span class="status-badge" [ngClass]="grade.active ? 'approved' : 'rejected'">
+            {{ grade.active ? 'Active' : 'Inactive' }}
+          </span>
+        </td>
+        <td *ngIf="isAdmin">
+          <button class="edit-btn" (click)="editGrade(grade.id!)">Edit</button>
+          <button class="delete-btn" (click)="deleteGrade(grade.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="grades.length === 0">No salary grades found.</div>
+</div>
+
+<app-modal-outlet [wide]="true" (closed)="loadGrades()"></app-modal-outlet>

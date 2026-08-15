@@ -1,0 +1,59 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Attendance List</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Search by employee or code..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+        <button (click)="search()">Search</button>
+      </div>
+      <button routerLink="/attendance/add" class="add-btn">+ Add Attendance</button>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Employee</th>
+        <th>Date</th>
+        <th>Check In</th>
+        <th>Check Out</th>
+        <th>Worked Hours</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let attendance of attendances">
+        <td>{{ attendance.id }}</td>
+        <td>{{ attendance.employeeName }}</td>
+        <td>{{ attendance.date | date: 'mediumDate' }}</td>
+        <td>{{ attendance.checkInTime ? (attendance.checkInTime | date: 'shortTime') : '-' }}</td>
+        <td>{{ attendance.checkOutTime ? (attendance.checkOutTime | date: 'shortTime') : '-' }}</td>
+        <td>{{ formatWorkedHours(attendance.workedHours) }}</td>
+        <td>
+          <span class="status-badge" [ngClass]="attendance.status?.toLowerCase()">{{
+            attendance.status
+          }}</span>
+        </td>
+        <td class="actions">
+          <button class="edit-btn" (click)="editAttendance(attendance.id!)">Edit</button>
+          <button class="delete-btn" (click)="deleteAttendance(attendance.id!)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(page - 1)" [disabled]="page === 0">Prev</button>
+    <button *ngFor="let p of getPages()" (click)="changePage(p)" [class.active]="page === p">
+      {{ p + 1 }}
+    </button>
+    <button (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1">Next</button>
+  </div>
+</div>
+
+<app-modal-outlet (closed)="loadAttendance()"></app-modal-outlet>

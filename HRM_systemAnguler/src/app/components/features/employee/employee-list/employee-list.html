@@ -1,0 +1,232 @@
+﻿<div class="employee-list-container">
+  <div class="page-header">
+    <div class="header-title">
+      <h1>Employee Management</h1>
+      <p>View and manage all employees in your organization</p>
+    </div>
+    <div class="header-actions">
+      <div class="search-filter-section">
+        <div class="search-wrapper">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="search-icon"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            placeholder="Search employee by name, code, or email..."
+            [(ngModel)]="keyword"
+            (keyup.enter)="searchEmployee()"
+          />
+        </div>
+        <div class="filter-actions">
+          <select [(ngModel)]="selectedStatus" (change)="filterByStatus()" class="filter-select">
+            <option value="">All Status</option>
+            <option *ngFor="let status of employeeStatuses" [value]="status">
+              {{ status }}
+            </option>
+          </select>
+          <button (click)="searchEmployee()" class="btn-search">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="11" cy="11" r="8" />
+              <path d="m21 21-4.35-4.35" />
+            </svg>
+            Search
+          </button>
+        </div>
+      </div>
+      <button routerLink="/employee/add" class="btn-add-employee">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14" />
+        </svg>
+        Add Employee
+      </button>
+    </div>
+  </div>
+  <div class="summary-section">
+    <div class="summary-card total">
+      <div class="summary-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z" />
+        </svg>
+      </div>
+      <div class="summary-content">
+        <h3>Total Employees</h3>
+        <p class="summary-value">{{ totalEmployee }}</p>
+      </div>
+    </div>
+    <div class="summary-card active">
+      <div class="summary-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
+          />
+        </svg>
+      </div>
+      <div class="summary-content">
+        <h3>Active Employees</h3>
+        <p class="summary-value">{{ activeEmployee }}</p>
+      </div>
+    </div>
+    <div class="summary-card inactive">
+      <div class="summary-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path
+            d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11z"
+          />
+        </svg>
+      </div>
+      <div class="summary-content">
+        <h3>Inactive Employees</h3>
+        <p class="summary-value">{{ inactiveEmployee }}</p>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Loading employees...</p>
+  </div>
+  <div *ngIf="errorMessage" class="error-container">
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      <path
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"
+      />
+    </svg>
+    <div>
+      <h4>Error</h4>
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
+  <div *ngIf="!loading && employees.length > 0" class="employees-grid">
+    <div *ngFor="let employee of employees" class="employee-card">
+      <div class="card-header">
+        <div
+          class="rounded-circle bg-warning d-flex align-items-center justify-content-center text-dark fw-bold overflow-hidden"
+          style="width: 72px; height: 72px; font-size: 1.8rem"
+        >
+          <img
+            *ngIf="employee?.image; else defaultImg"
+            [src]="employeePhotoUrl(employee?.image)"
+            class="w-100 h-100 object-fit-cover"
+          />
+          <ng-template #defaultImg>
+            <i class="bi bi-person fs-2"></i>
+          </ng-template>
+        </div>
+        <div
+          class="employee-status"
+          [class.active]="employee.status === 'ACTIVE'"
+          [class.inactive]="employee.status !== 'ACTIVE'"
+        >
+          {{ employee.status }}
+        </div>
+      </div>
+      <div class="card-body">
+        <h3 class="employee-name">{{ employee.fullName }}</h3>
+        <p class="employee-code">{{ employee.employeeCode }}</p>
+        <div class="employee-details">
+          <div class="detail-item">
+            <span class="detail-label">Email</span>
+            <span class="detail-value">{{ employee.email }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Department</span>
+            <span class="detail-value">{{ employee.departmentName }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Designation</span>
+            <span class="detail-value">{{ employee.designationTitle }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="detail-label">Office</span>
+            <span class="detail-value">{{ employee.officeName }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <button
+          (click)="viewEmployee(employee.id)"
+          class="btn-action btn-view"
+          title="View Details"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+            <circle cx="12" cy="12" r="3" />
+          </svg>
+          View
+        </button>
+        <button
+          (click)="editEmployee(employee.id)"
+          class="btn-action btn-edit"
+          title="Edit Employee"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+          </svg>
+          Edit
+        </button>
+        <button
+          (click)="deleteEmployee(employee.id)"
+          class="btn-action btn-delete"
+          title="Delete Employee"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6" />
+            <path
+              d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"
+            />
+            <line x1="10" y1="11" x2="10" y2="17" />
+            <line x1="14" y1="11" x2="14" y2="17" />
+          </svg>
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!loading && employees.length === 0" class="empty-state">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z" />
+    </svg>
+    <h3>No Employees Found</h3>
+    <p>Try adjusting your search or filter criteria</p>
+  </div>
+  <div *ngIf="!loading && totalPages > 1" class="pagination-section">
+    <div class="pagination-info">
+      <p>Showing page {{ page + 1 }} of {{ totalPages }} | Total: {{ totalElements }} employees</p>
+    </div>
+    <div class="pagination">
+      <button (click)="changePage(page - 1)" [disabled]="page === 0" class="btn-pagination">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Previous
+      </button>
+      <button
+        *ngFor="let p of getPages()"
+        (click)="changePage(p)"
+        [class.active]="page === p"
+        class="btn-pagination"
+      >
+        {{ p + 1 }}
+      </button>
+      <button
+        (click)="changePage(page + 1)"
+        [disabled]="page >= totalPages - 1"
+        class="btn-pagination"
+      >
+        Next
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-modal-outlet [wide]="true" (closed)="loadEmployees(); loadCounts()"></app-modal-outlet>

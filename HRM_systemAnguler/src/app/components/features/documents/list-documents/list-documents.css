@@ -1,0 +1,65 @@
+.list-container {
+  padding: 20px;
+  background: var(--color-surface);
+  border-radius: 10px;
+}
+.empty {
+  text-align: center;
+  padding: 20px;
+  color: gray;
+}
+.retry-btn {
+  background: var(--color-accent);
+  color: var(--color-surface);
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.add-btn {
+  display: inline-block;
+  padding: 10px 15px;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  text-decoration: none;
+  border-radius: 5px;
+  margin-bottom: 15px;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  border: 1px solid var(--color-border);
+  padding: 10px;
+  text-align: center;
+}
+th {
+  background: var(--color-bg-subtle);
+}
+.edit {
+  background: var(--color-success);
+  color: var(--color-surface);
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 4px;
+  margin-right: 5px;
+}
+.download-btn {
+  display: inline-block;
+  background: var(--color-accent);
+  color: var(--color-surface);
+  padding: 5px 10px;
+  text-decoration: none;
+  border-radius: 4px;
+}
+button {
+  background: var(--color-danger);
+  color: var(--color-surface);
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}

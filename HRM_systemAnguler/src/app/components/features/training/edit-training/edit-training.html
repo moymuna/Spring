@@ -1,0 +1,16 @@
+<div class="container">
+  <h2>Edit Training</h2>
+  <form [formGroup]="trainingForm" (ngSubmit)="updateTraining()">
+    <label> Training Title </label>
+    <input type="text" formControlName="trainingTitle" placeholder="Enter Training Title" />
+    <label> Start Date </label>
+    <input type="date" formControlName="startDate" placeholder="Enter Start Date" />
+    <label> End Date </label>
+    <input type="date" formControlName="endDate" placeholder="Enter End Date" />
+    <label> Employee ID </label>
+    <input type="number" formControlName="employeeId" placeholder="Enter Employee ID" />
+    <label> Department ID </label>
+    <input type="number" formControlName="departmentId" placeholder="Enter Department ID" />
+    <button>Update Training</button>
+  </form>
+</div>

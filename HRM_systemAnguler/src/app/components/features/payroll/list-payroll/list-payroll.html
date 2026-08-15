@@ -1,0 +1,81 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Payroll List</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Search by employee or code..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+        <button (click)="search()">Search</button>
+      </div>
+      <a routerLink="/payroll/add" class="add-btn"> Add Payroll </a>
+    </div>
+  </div>
+  <div class="generate-payroll-box">
+    <h3>Generate Payroll</h3>
+    <select [(ngModel)]="generateEmployeeId">
+      <option [value]="0">Select Employee</option>
+      <option *ngFor="let e of employees" [value]="e.id">
+        {{ e.fullName }} ({{ e.employeeCode }})
+      </option>
+    </select>
+    <input type="number" [(ngModel)]="generateMonth" min="1" max="12" placeholder="Enter Month" />
+    <input type="number" [(ngModel)]="generateYear" placeholder="Enter Year" />
+    <button (click)="generatePayroll()" [disabled]="generating">
+      {{ generating ? 'Generating...' : 'Generate' }}
+    </button>
+    <p class="hint">
+      Computes gross/deductions/net from the employee's active salary structure and that month's
+      attendance.
+    </p>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Employee</th>
+        <th>Month</th>
+        <th>Year</th>
+        <th>Gross</th>
+        <th>Net</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of payrolls">
+        <td>{{ p.id }}</td>
+        <td>{{ p.employeeName }}</td>
+        <td>{{ p.month }}</td>
+        <td>{{ p.year }}</td>
+        <td>{{ p.grossSalary }}</td>
+        <td>{{ p.netSalary }}</td>
+        <td>{{ p.status }}</td>
+        <td>
+          <button
+            *ngIf="p.status === 'PROCESSED'"
+            (click)="payPayroll(p.id!)"
+            class="pay"
+            title="Mark salary as paid via bank transfer"
+          >
+            Pay
+          </button>
+          <a [routerLink]="['/payroll/edit', p.id]" class="edit"> Edit </a>
+          <button (click)="deletePayroll(p.id!)" class="delete">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(page - 1)" [disabled]="page === 0">Prev</button>
+    <button *ngFor="let p of getPages()" (click)="changePage(p)" [class.active]="page === p">
+      {{ p + 1 }}
+    </button>
+    <button (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1">Next</button>
+  </div>
+</div>
+
+<app-modal-outlet (closed)="loadPayrolls()"></app-modal-outlet>

@@ -1,0 +1,38 @@
+<div class="document-container">
+  <h2>Edit Document</h2>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <div class="error" *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+  <form [formGroup]="documentForm" (ngSubmit)="updateDocument()">
+    <div class="form-group">
+      <label> Document Name </label>
+      <input type="text" formControlName="documentName" placeholder="Enter Document Name" />
+    </div>
+    <div class="form-group">
+      <label> Document Type </label>
+      <select formControlName="documentType">
+        <option *ngFor="let type of documentTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label> File </label>
+      <input
+        type="text"
+        formControlName="filePath"
+        readonly
+        placeholder="Enter File"
+        title="To replace the file, delete this document and add a new one."
+      />
+    </div>
+    <div class="form-group">
+      <label> Employee ID </label>
+      <input type="number" formControlName="employeeId" placeholder="Enter Employee ID" />
+    </div>
+    <button type="submit">Update</button>
+  </form>
+</div>

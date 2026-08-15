@@ -1,0 +1,76 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Applicant List</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <input
+          type="text"
+          placeholder="Search by name, email, or skills..."
+          [(ngModel)]="keyword"
+          (keyup.enter)="search()"
+        />
+        <button (click)="search()">Search</button>
+      </div>
+      <a routerLink="/applicant/add" class="add-btn"> + Add Applicant </a>
+    </div>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Education</th>
+        <th>Experience</th>
+        <th>Skills</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let applicant of applicants">
+        <td>
+          {{ applicant.id }}
+        </td>
+        <td>
+          {{ applicant.name }}
+        </td>
+        <td>
+          {{ applicant.email }}
+        </td>
+        <td>
+          {{ applicant.phone }}
+        </td>
+        <td>
+          <span *ngFor="let edu of applicant.education">
+            {{ edu }}
+            <br />
+          </span>
+        </td>
+        <td>
+          <span *ngFor="let exp of applicant.experience">
+            {{ exp }}
+            <br />
+          </span>
+        </td>
+        <td>
+          {{ applicant.skills }}
+        </td>
+        <td>
+          <a [routerLink]="['/applicant/edit', applicant.id]" class="edit-btn"> Edit </a>
+          <button (click)="deleteApplicant(applicant.id!)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="empty" *ngIf="applicants.length === 0">No applicants found.</div>
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="changePage(page - 1)" [disabled]="page === 0">Prev</button>
+    <button *ngFor="let p of getPages()" (click)="changePage(p)" [class.active]="page === p">
+      {{ p + 1 }}
+    </button>
+    <button (click)="changePage(page + 1)" [disabled]="page >= totalPages - 1">Next</button>
+  </div>
+</div>
+
+<app-modal-outlet (closed)="loadApplicants()"></app-modal-outlet>

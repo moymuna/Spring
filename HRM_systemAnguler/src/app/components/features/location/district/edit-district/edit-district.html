@@ -1,0 +1,47 @@
+<div class="district-container">
+  <h2>Edit District</h2>
+  <form (ngSubmit)="update()">
+    <div class="form-group">
+      <label>District Name</label>
+      <input
+        type="text"
+        name="districtsName"
+        [(ngModel)]="district.districtsName"
+        placeholder="Enter District Name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label>District Name (BN)</label>
+      <input
+        type="text"
+        name="nameBN"
+        [(ngModel)]="district.nameBN"
+        placeholder="Enter District Name (BN)"
+      />
+    </div>
+    <div class="form-group">
+      <label>District Code</label>
+      <input
+        type="text"
+        name="districtCode"
+        [(ngModel)]="district.districtCode"
+        placeholder="Enter District Code"
+      />
+    </div>
+    <div class="form-group">
+      <label>Division Id</label>
+      <input
+        type="number"
+        name="divisionId"
+        [(ngModel)]="district.divisionId"
+        placeholder="Enter Division ID"
+        required
+      />
+    </div>
+    <div class="button-group">
+      <button type="submit">Update</button>
+      <button type="button" class="reset-btn" (click)="reset()">Reset</button>
+    </div>
+  </form>
+</div>

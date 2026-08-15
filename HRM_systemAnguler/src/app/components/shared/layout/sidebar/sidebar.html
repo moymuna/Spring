@@ -1,0 +1,265 @@
+<aside class="sidebar" [class.collapsed]="collapsed()">
+  <a class="brand" routerLink="/dashboard">
+    <span class="brand-mark"><i class="bi bi-people-fill"></i></span>
+    <span class="brand-text">
+      <strong>HRM</strong>
+      <small>SYSTEM</small>
+    </span>
+  </a>
+
+  <nav class="nav">
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-grid-1x2"></i><span>Dashboard</span>
+    </a>
+
+    <p class="nav-section" *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])">Organisation</p>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])"
+      routerLink="/employee"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="nav-item"
+    >
+      <i class="bi bi-people"></i><span>Employees</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])"
+      routerLink="/department"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-building"></i><span>Departments</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])"
+      routerLink="/designation"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-briefcase"></i><span>Designations</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])"
+      routerLink="/office"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-buildings"></i><span>Offices</span>
+    </a>
+    <a *ngIf="canSee(['ADMIN'])" routerLink="/user" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-person-gear"></i><span>Users</span>
+    </a>
+
+    <p class="nav-section" *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])">Time &amp; Leave</p>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])"
+      routerLink="/attendance"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-calendar-check"></i><span>Attendance</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])"
+      routerLink="/leave"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-calendar-range"></i><span>Leave</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])"
+      routerLink="/leavetype"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-tags"></i><span>Leave Type</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'EMPLOYEE'])"
+      routerLink="/leavebalance"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-clipboard-data"></i><span>Leave Balance</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])"
+      routerLink="/holiday"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-calendar-heart"></i><span>Holidays</span>
+    </a>
+
+    <p class="nav-section" *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])">Payroll</p>
+    <a *ngIf="canSee(['ADMIN', 'HR'])" routerLink="/salary" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-cash-stack"></i><span>Salary</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])"
+      routerLink="/salarygrade"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-bar-chart-steps"></i><span>Salary Grade</span>
+    </a>
+    <a *ngIf="canSee(['EMPLOYEE'])" routerLink="/my-salary" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-receipt"></i><span>My Salary</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])"
+      routerLink="/advance"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-wallet2"></i><span>Advance</span>
+    </a>
+    <a *ngIf="canSee(['ADMIN', 'HR'])" routerLink="/payroll" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-calculator"></i><span>Payroll</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR'])"
+      routerLink="/salary-sheet"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-table"></i><span>Salary Sheet</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR'])"
+      routerLink="/company-bank"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-bank"></i><span>Company Bank</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'EMPLOYEE'])"
+      routerLink="/payslip"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-file-earmark-text"></i><span>Payslip</span>
+    </a>
+
+    <p class="nav-section" *ngIf="canSee(['ADMIN', 'HR', 'APPLICANT'])">Recruitment</p>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'APPLICANT'])"
+      routerLink="/jobpost"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-megaphone"></i><span>Job Posts</span>
+    </a>
+    <a *ngIf="canSee(['ADMIN', 'HR'])" routerLink="/applicant" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-person-badge"></i><span>Applicants</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR'])"
+      routerLink="/application"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-file-earmark-person"></i><span>Applications</span>
+    </a>
+    <a *ngIf="canSee(['ADMIN', 'HR'])" routerLink="/interview" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-camera-video"></i><span>Interviews</span>
+    </a>
+
+    <p class="nav-section" *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])">Workplace</p>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])"
+      routerLink="/project"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-kanban"></i><span>Projects</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])"
+      routerLink="/training"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-mortarboard"></i><span>Training</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])"
+      routerLink="/performancereview"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-star"></i><span>Performance</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'MANAGER', 'EMPLOYEE'])"
+      routerLink="/notice"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-pin-angle"></i><span>Notice Board</span>
+    </a>
+    <a
+      *ngIf="canSee(['ADMIN', 'HR', 'EMPLOYEE'])"
+      routerLink="/documents"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-folder2-open"></i><span>Documents</span>
+    </a>
+
+    <p class="nav-section" *ngIf="canSee(['ADMIN', 'HR', 'MANAGER'])">Locations</p>
+    <a
+      *ngIf="canSee(['HR', 'MANAGER'])"
+      routerLink="/country"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-globe2"></i><span>Country</span>
+    </a>
+    <a
+      *ngIf="canSee(['HR', 'MANAGER'])"
+      routerLink="/division"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-diagram-3"></i><span>Division</span>
+    </a>
+    <a
+      *ngIf="canSee(['HR', 'MANAGER'])"
+      routerLink="/district"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-geo-alt"></i><span>District</span>
+    </a>
+    <a
+      *ngIf="canSee(['HR', 'MANAGER'])"
+      routerLink="/policestation"
+      routerLinkActive="active"
+      class="nav-item"
+    >
+      <i class="bi bi-shield-check"></i><span>Police Station</span>
+    </a>
+    <a *ngIf="canSee(['ADMIN'])" routerLink="/audit-log" routerLinkActive="active" class="nav-item">
+      <i class="bi bi-journal-text"></i><span>Audit Log</span>
+    </a>
+
+    <p class="nav-section" *ngIf="canSee(['ADMIN', 'HR'])">Shortcuts</p>
+    <a *ngIf="canSee(['ADMIN', 'HR'])" routerLink="/employee/add" class="nav-item">
+      <i class="bi bi-person-plus"></i><span>Add Employee</span>
+    </a>
+    <a *ngIf="canSee(['ADMIN'])" routerLink="/department/add" class="nav-item">
+      <i class="bi bi-plus-square"></i><span>Add Department</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-help">
+    <i class="bi bi-headset"></i>
+    <div>
+      <strong>Need Help?</strong>
+      <small>Contact HR Support</small>
+    </div>
+  </div>
+</aside>

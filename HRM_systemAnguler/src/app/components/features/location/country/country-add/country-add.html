@@ -1,0 +1,36 @@
+<div class="country-container">
+  <h2>Add Country</h2>
+  <form (ngSubmit)="save()">
+    <div class="form-group">
+      <label> Country Name </label>
+      <input
+        type="text"
+        name="countryName"
+        [(ngModel)]="country.countryName"
+        placeholder="Enter Country Name"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label> Country Code </label>
+      <input
+        type="text"
+        name="code"
+        [(ngModel)]="country.code"
+        placeholder="Enter Country Code"
+        required
+      />
+    </div>
+    <div class="form-group">
+      <label> Phone Code </label>
+      <input
+        type="text"
+        name="phoneCode"
+        [(ngModel)]="country.phoneCode"
+        placeholder="Enter Phone Code"
+        required
+      />
+    </div>
+    <button type="submit">Save Country</button>
+  </form>
+</div>

@@ -1,0 +1,47 @@
+﻿<div class="container">
+  <div class="header">
+    <h2>Holiday List</h2>
+    <a *ngIf="!isEmployeeOnly" routerLink="/holiday/add" class="add-btn"> + Add Holiday </a>
+  </div>
+  <div class="success" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Recurring</th>
+        <th>Description</th>
+        <th *ngIf="!isEmployeeOnly">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let holiday of holidays">
+        <td>
+          {{ holiday.id }}
+        </td>
+        <td>
+          {{ holiday.name }}
+        </td>
+        <td>
+          {{ holiday.date }}
+        </td>
+        <td>
+          <span *ngIf="holiday.recurringYearly"> Yes </span>
+          <span *ngIf="!holiday.recurringYearly"> No </span>
+        </td>
+        <td>
+          {{ holiday.description }}
+        </td>
+        <td *ngIf="!isEmployeeOnly">
+          <a [routerLink]="['/holiday/edit', holiday.id]" class="edit-btn"> Edit </a>
+          <button (click)="deleteHoliday(holiday.id!)" class="delete-btn">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<app-modal-outlet (closed)="loadHolidays()"></app-modal-outlet>
